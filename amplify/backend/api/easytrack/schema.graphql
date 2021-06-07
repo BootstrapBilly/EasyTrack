@@ -1,0 +1,103 @@
+# nutrition abstract
+type Day @model {
+  id: ID!
+  date: String!
+  kcals: TargetActual!
+  macros: MacroTarget!
+  meals: [Meal]
+  createdBy: ID! 
+}
+
+type Meal @model {
+  id: ID!
+  macros: Macros!
+  kcals: Int!
+  foods: [Food]! 
+  time: String
+  createdBy: ID!
+}
+
+type Food @model {
+  id: ID!
+  name: String!
+  macros: Macros!
+  foodAmountType: FoodAmountTypeEnum!
+  amount: Int!
+  createdBy: ID!
+}
+
+# training abstract
+type Workout @model {
+  id: ID!
+  date: String!
+  exercises: [Exercise]
+  performanceHistory: [ExercisePerformance]
+  createdBy: ID!
+}
+
+type Set @model {
+  id: ID!
+  weightType: WeightTypeEnum!
+  weight: Int!
+  reps: Int!
+  effort: Int
+  createdBy: ID!
+}
+
+type ExercisePerformance @model {
+  id: ID!
+  exercise: Exercise!
+  numSets: Int!
+  performance: [Set]
+  createdBy: ID!
+}
+
+# nutrition concrete
+type TargetActual {
+  target: Int!
+  actual: Int!
+}
+
+type Macros {
+  protein: Int!
+  carbs: Int!
+  fats: Int!
+}
+
+type MacroTarget {
+  protein: TargetActual!
+  carbs: TargetActual!
+  fats: TargetActual!
+}
+
+# training concrete
+type Exercise {
+  name: String!
+  muscle: MuscleEnum!
+}
+
+# nutrition enums
+enum FoodAmountTypeEnum {
+  GRAMS
+  WHOLE
+}
+
+# training enums
+enum WeightTypeEnum {
+  KG
+  LB
+  BODYWEIGHT
+  NONE
+}
+
+enum MuscleEnum {
+  CHEST
+  BACK
+  SHOULDERS
+  BICEPS
+  TRICEPS
+  GLUTES
+  HAMSTRINGS
+  CALFS
+  COMPOUND
+}
