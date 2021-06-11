@@ -1,10 +1,10 @@
 const validateRequiredField = (field, body) => {
-    if(!body[field] || // if the field is missing
-        (body[field] && !body[field].trim()) // or it is truish, but all whitespace
+    if(!body[field] ||
+        (body[field] && !body[field].trim())
     ){
-        return field; // return the field to be sent as part of the response
+        return field;
     } 
-    return null; // otherwise if it exists, return null
+    return null;
 }
 
 module.exports = validateRequiredField;
