@@ -1,7 +1,9 @@
-const validateRequiredField = require("./validate-required-field");
-const validateEmailAddress = require("./validate-email-address");
+const { checkRequiredValue, validateEmailAddress } = require("./validators");
+const { userErrorResponse, serverErrorResponse } = require("./responses");
 
 module.exports = {
-    validateRequiredField,
+    checkRequiredValue,
     validateEmailAddress,
+    userErrorResponse,
+    serverErrorResponse,
 }

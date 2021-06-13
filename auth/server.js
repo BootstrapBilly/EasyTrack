@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { signup } = require("./controllers");
+const { signup, login } = require("./controllers");
 
 // config
 const server = express();
@@ -21,6 +21,7 @@ server.use((req, res, next) => {
 
 // routes
 router.post("/signup", signup);
+router.post("/login", login);
 
 const MONGODBURI = "mongodb://Billy:Bau438xJSDLfPJ2@billy-shard-00-00-qqthk.mongodb.net:27017,billy-shard-00-01-qqthk.mongodb.net:27017,billy-shard-00-02-qqthk.mongodb.net:27017/EasyTrack?ssl=true&replicaSet=Billy-shard-0&authSource=admin&retryWrites=true&w=majority"
 
