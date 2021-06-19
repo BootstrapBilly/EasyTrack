@@ -5,11 +5,8 @@ dotenv.config();
 const mailjet = require ('node-mailjet').connect(process.env.MAILJETKEY1, process.env.MAILJETKEY2)//set up the mailjet API and enter the keys
 
 const passwordResetEmail = async (email, token, userId) => {
-
    mailjet.post("send", {'version': 'v3.1'})
- 
      .request({
-
        "Messages":[
          {
            "From": {
@@ -30,7 +27,6 @@ const passwordResetEmail = async (email, token, userId) => {
            `,
          }
        ]
-
      })
  }
 

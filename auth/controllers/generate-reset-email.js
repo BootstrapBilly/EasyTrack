@@ -19,6 +19,9 @@ const generateResetEmail = async (req, res) => {
         // generate a random token 
         const token = crypto.randomBytes(32).toString('hex');//generate a random 32 char token
 
+        // store the token and expiration on the user
+        await User.findOneAndUpdate({ _id: user._id }, { resetToken: token, tokenExpiration: Date.now() + 36000000 })
+
         // send the reset email
         sendPasswordResetEmail(email, token, user._id)//send a password reset email, with the token and user id included
 
@@ -27,11 +30,8 @@ const generateResetEmail = async (req, res) => {
             success: true,
             message: responseMessage,
          })
-
-
     } 
     catch (error) { // if something fails in the try block
-        console.log(error);
         return serverErrorResponse(res); // return a server ever
     }
 

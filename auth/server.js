@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { signup, login, generateResetEmail } = require("./controllers");
+const { signup, login, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
 
 // config
@@ -25,6 +25,7 @@ server.use((req, res, next) => {
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/password-reset", generateResetEmail);
+router.post("/reset-password", resetPassword);
 
 mongoose
   .connect(

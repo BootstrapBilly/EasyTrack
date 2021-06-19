@@ -42,7 +42,6 @@ const signup = async (req, res) => {
 
     } 
     catch (error) { // if something fails in the try block
-        console.log(error);
         return serverErrorResponse(res); // return a server ever
     }
 
