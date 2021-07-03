@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 const express = require("express");
 const mongoose = require("mongoose");
-const { signup, login, generateResetEmail, resetPassword } = require("./controllers");
+const { signup, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
 const helmet = require("helmet");
 
@@ -14,7 +15,6 @@ server.use(helmet());
 server.use(express.json());
 server.use((req, res, next) => {
 
-  // console.log(req.body)
   //! lock this down to frontend url when deployed
   res.setHeader("Access-Control-Allow-Origin", "*"); 
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
@@ -23,10 +23,11 @@ server.use((req, res, next) => {
 
 });
 server.use(router);
+
 // routes
 router.post("/signup", signup);
 router.post("/login", login);
-// router.post("/delete-user", deleteUser);
+router.post("/delete-user", deleteUser);
 router.post("/password-reset", generateResetEmail);
 router.post("/reset-password", resetPassword);
 
@@ -34,7 +35,7 @@ mongoose
   .connect(
     process.env.DBSTRING, { useUnifiedTopology: true, useNewUrlParser: true }
   )
-  .then(result => {
+  .then(() => {
     server.listen(process.env.PORT || 8080);
     console.log("\n\x1b[36mServer running on port 8080\n")
   })

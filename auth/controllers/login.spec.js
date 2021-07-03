@@ -63,7 +63,7 @@ test("should return the correct response when valid information is supplied", as
 
     await t.context.login({ body: { email: "", password: "p4ss_w0drd" }}, t.context.res);
 
-    t.true(t.context.res.status.calledWithExactly(424));
+    t.true(t.context.res.status.calledWithExactly(200));
 
     t.true(t.context.res.json.calledWith({
         success: true,
