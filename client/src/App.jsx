@@ -1,7 +1,9 @@
+import { Auth } from "./Pages";
+
 const App = () => {
   return (
     <div className="App">
-      hi
+      <Auth />
     </div>
   );
 }
