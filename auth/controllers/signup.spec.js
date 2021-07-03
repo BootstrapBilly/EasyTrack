@@ -43,6 +43,17 @@ test("should return the correct response when the given email is in use", async 
     }))
 })
 
+test("should return 418 when a malformed request body has been supplied", async (t) => {    
+    await t.context.signup({ body: { password: {p: "P4sd3ghf", yes: "no" }}}, t.context.res);
+
+    t.true(t.context.res.status.calledWithExactly(418));
+
+    t.true(t.context.res.json.calledWith({
+        success: false,
+        message: "Permission denied", 
+    }))
+})
+
 test("should return the correct response when the required info is present and valid", async (t) => {    
     t.context.models.User.findOne.resolves(null);
     t.context.models.User.create.resolves({_id: "a"});

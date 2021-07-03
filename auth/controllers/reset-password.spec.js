@@ -55,6 +55,19 @@ test("should return the correct response when reset token has expired", async (t
     }))
 })
 
+test("should return 418 when a malformed request body has been supplied", async (t) => {    
+    t.context.models.User.findOne.resolves({_id: "1", email: "a@b.com", token: "1", tokenExpiration: 90000000000000000000, update: sinon.stub() });
+
+    await t.context.resetPassword({ body: { userId: "1", token: "1", password: {p: "P4sd3ghf"}}}, t.context.res);
+
+    t.true(t.context.res.status.calledWithExactly(418));
+
+    t.true(t.context.res.json.calledWith({
+        success: false,
+        message: "Permission denied", 
+    }))
+})
+
 test("should return the correct response when all requirements are met and password is updated", async (t) => {    
     t.context.models.User.findOne.resolves({_id: "1", email: "a@b.com", token: "1", tokenExpiration: 90000000000000000000, update: sinon.stub() });
 

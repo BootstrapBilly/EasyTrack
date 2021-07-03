@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { signup, login, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
+const helmet = require("helmet");
 
 // config
 const server = express();
@@ -9,10 +10,11 @@ const router = express.Router();
 env.config();
 
 // middleware
+server.use(helmet());
 server.use(express.json());
-server.use(router);
 server.use((req, res, next) => {
 
+  // console.log(req.body)
   //! lock this down to frontend url when deployed
   res.setHeader("Access-Control-Allow-Origin", "*"); 
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
@@ -20,10 +22,11 @@ server.use((req, res, next) => {
   next();
 
 });
-
+server.use(router);
 // routes
 router.post("/signup", signup);
 router.post("/login", login);
+// router.post("/delete-user", deleteUser);
 router.post("/password-reset", generateResetEmail);
 router.post("/reset-password", resetPassword);
 
