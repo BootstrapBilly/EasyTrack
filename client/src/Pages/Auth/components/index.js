@@ -1,1 +1,2 @@
-export { default as Landing } from "./Landing";
+export { AuthForm } from "./AuthForm";
+export { Landing } from "./Landing";

@@ -1,10 +1,17 @@
-import React from "react";
-import { Landing } from "./components";
+import React, { useState } from "react";
+import { AuthForm, Landing } from "./components";
 
 const Auth = () => {
+  const [showForm, setShowForm] = useState(false);
+
+  const handleSwitch = () => setShowForm(!showForm);
   return (
     <div className="w-screen h-screen">
-      <Landing />
+      {showForm ? (
+        <AuthForm onSwitch={handleSwitch} />
+      ) : (
+        <Landing onSwitch={handleSwitch} />
+      )}
     </div>
   );
 };
