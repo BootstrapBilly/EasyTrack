@@ -2,7 +2,7 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
 
-const Input = ({ name, label, type = "text", validation, hide }) => {
+const Input = ({ name, validation, hide, ...props }) => {
   const {
     register,
     formState: { errors },
@@ -13,13 +13,12 @@ const Input = ({ name, label, type = "text", validation, hide }) => {
   return (
     <div className="mb-2">
       <TextField
-        label={label}
         variant="outlined"
         fullWidth
-        type={type}
         {...register(name, { ...validation })}
         error={[name] in errors}
         helperText={[name] in errors && errors[name].message}
+        {...props}
       />
     </div>
   );

@@ -46,6 +46,7 @@ const AuthForm = ({ onSwitch }) => {
           },
         }}
         hide={mode === LOGIN}
+        autoComplete="off"
       />
       <Form.Input
         name="email"
@@ -57,6 +58,7 @@ const AuthForm = ({ onSwitch }) => {
       <Form.Input
         name="password"
         label="Password"
+        type="password"
         validation={{
           required: "Password is required",
         }}
@@ -64,6 +66,7 @@ const AuthForm = ({ onSwitch }) => {
       <Form.Input
         name="repeatPassword"
         label="Repeat password"
+        type="password"
         validation={{
           required: "Repeat password is required",
         }}
