@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { Form } from "../../../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  checkRequiredValue as valueMissing,
+  validateEmailAddress as invalidEmail,
+} from "@billyjames/util-packages";
+import commonPassword from "common-password-checker";
 
 const LOGIN = "LOGIN";
 const SIGNUP = "SIGNUP";
 
 const AuthForm = ({ onSwitch }) => {
   const [mode, setMode] = useState(SIGNUP);
+  const [password, setPassword] = useState("");
+
+  console.log(password);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -16,6 +24,7 @@ const AuthForm = ({ onSwitch }) => {
     if (mode === LOGIN) return setMode(SIGNUP);
     return setMode(LOGIN);
   };
+
   return (
     <Form onSubmit={onSubmit} className="p-5">
       <button
@@ -41,8 +50,9 @@ const AuthForm = ({ onSwitch }) => {
         label="Username"
         validation={{
           validate: {
-            length3: (v) =>
-              v.length > 2 || "Username must be at least 3 characters",
+            length3: (username) =>
+              !valueMissing({ value: username }, { length: 3 }) ||
+              "Username must be at least 3 characters",
           },
         }}
         hide={mode === LOGIN}
@@ -53,14 +63,25 @@ const AuthForm = ({ onSwitch }) => {
         label="Email address"
         validation={{
           required: "Email Address is required",
+          validate: {
+            validEmail: (email) =>
+              !invalidEmail(email) || "Enter a valid email address",
+          },
         }}
       />
       <Form.Input
         name="password"
         label="Password"
         type="password"
+        onChange={({ target }) => setPassword(target.value)}
         validation={{
-          required: "Password is required",
+          validate: {
+            length8: (password) =>
+              !valueMissing({ value: password }, { length: 8 }) ||
+              "Password must be at least 8 characters",
+            common: (password) =>
+              !commonPassword(password) || "Common password, use a better one",
+          },
         }}
       />
       <Form.Input
@@ -68,7 +89,10 @@ const AuthForm = ({ onSwitch }) => {
         label="Repeat password"
         type="password"
         validation={{
-          required: "Repeat password is required",
+          validate: {
+            passwordsMatch: (repeatPassword) =>
+              repeatPassword === password || "Passwords must match",
+          },
         }}
         hide={mode === LOGIN}
       />

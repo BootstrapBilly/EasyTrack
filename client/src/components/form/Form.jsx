@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { Input, Switcher, Submit } from "./components";
 
 const Form = ({ children, onSubmit, className }) => {
-  const methods = useForm();
+  const methods = useForm({ mode: "onChange" });
   const { handleSubmit } = methods;
 
   return (
