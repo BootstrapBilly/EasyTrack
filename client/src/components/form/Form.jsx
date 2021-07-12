@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { Input, Switcher, Submit } from "./components";
+import { Error, Input, Submit, Switcher } from "./components";
 
-const Form = ({ children, onSubmit, className }) => {
+const Form = ({ children, onSubmit, className, customErrors }) => {
   const methods = useForm({ mode: "onChange" });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
+
+  useEffect(() => {
+    console.log(customErrors);
+    if (customErrors?.length) {
+      customErrors.forEach(({ name, message }) =>
+        setError(name, {
+          type: "manual",
+          message,
+        })
+      );
+    }
+  }, [customErrors]);
 
   return (
     <FormProvider {...methods}>
@@ -15,8 +27,9 @@ const Form = ({ children, onSubmit, className }) => {
   );
 };
 
+Form.Error = Error;
 Form.Input = Input;
-Form.Switcher = Switcher;
 Form.Submit = Submit;
+Form.Switcher = Switcher;
 
 export default Form;

@@ -1,3 +1,4 @@
+export { Error } from "./Error";
 export { Input } from "./Input";
-export { Switcher } from "./Switcher";
 export { Submit } from "./Submit";
+export { Switcher } from "./Switcher";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form } from "../../../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,27 +10,34 @@ import commonPassword from "common-password-checker";
 const LOGIN = "LOGIN";
 const SIGNUP = "SIGNUP";
 
-const AuthForm = ({ onSwitch }) => {
+const AuthForm = ({
+  handleSwitchToLanding,
+  handleSignup,
+  handleLogin,
+  backendErrors,
+}) => {
   const [mode, setMode] = useState(SIGNUP);
   const [password, setPassword] = useState("");
-
-  console.log(password);
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   const handleSwitchMode = () => {
     if (mode === LOGIN) return setMode(SIGNUP);
     return setMode(LOGIN);
   };
 
+  const onSubmit = (data) => {
+    if (mode === LOGIN) {
+      const { email, password } = data;
+      return handleLogin({ email, password });
+    }
+    return handleSignup(data);
+  };
+
   return (
-    <Form onSubmit={onSubmit} className="p-5">
+    <Form onSubmit={onSubmit} className="p-5" customErrors={backendErrors}>
       <button
         type="button"
         className="text-sm text-brand flex w-11 items-center justify-between"
-        onClick={onSwitch}
+        onClick={handleSwitchToLanding}
       >
         <FontAwesomeIcon icon="chevron-left" />
         Back
@@ -96,6 +103,7 @@ const AuthForm = ({ onSwitch }) => {
         }}
         hide={mode === LOGIN}
       />
+      <Form.Error />
       <div className="mt-8 flex flex-col items-center">
         <Form.Submit text={mode === SIGNUP ? "CREATE ACCOUNT" : "LOG IN"} />
       </div>

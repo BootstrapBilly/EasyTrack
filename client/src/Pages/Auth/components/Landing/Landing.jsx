@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import Background from "../../../../Assets/Auth-background.svg";
 
-const Landing = ({ onSwitch }) => {
+const Landing = ({ handleSwitchToForm }) => {
   return (
     <div className="w-full h-full flex flex-col">
       <div className={`flex pt-20 pb-10`}>
@@ -21,7 +21,7 @@ const Landing = ({ onSwitch }) => {
           fullWidth
           className="h-12 shadow"
           type="submit"
-          onClick={onSwitch}
+          onClick={handleSwitchToForm}
         >
           LETS GO!
         </Button>
