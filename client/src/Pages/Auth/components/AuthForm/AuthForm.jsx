@@ -103,7 +103,7 @@ const AuthForm = ({
         }}
         hide={mode === LOGIN}
       />
-      <Form.Error />
+      <Form.Error className="px-2" />
       <div className="mt-8 flex flex-col items-center">
         <Form.Submit text={mode === SIGNUP ? "CREATE ACCOUNT" : "LOG IN"} />
       </div>

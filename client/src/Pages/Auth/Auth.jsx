@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthForm, Landing } from "./components";
 import { login, signup } from "./requests";
+import { loginSuccess } from "../../store/actions";
 
 const Auth = () => {
+  const { userId } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const [showForm, setShowForm] = useState(false);
   const [backendErrors, setBackendErrors] = useState([]);
 
@@ -11,7 +16,8 @@ const Auth = () => {
   const handleLogin = async (formData) => {
     try {
       const { data } = await login(formData);
-      console.log(data);
+
+      dispatch(loginSuccess(data));
     } catch ({ response: { data } }) {
       console.log(data);
       setBackendErrors([

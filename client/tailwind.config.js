@@ -7,7 +7,8 @@ module.exports = {
       grey: {
         light: "#D3D3D3",
         medium: "#808080",
-      }
+      },
+      red: "#f44336",
     },
     extend: {},
   },
