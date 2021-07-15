@@ -1,8 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import Background from "../../../../Assets/Auth-background.svg";
+import { switchAuthenticationStatus } from "../../../../store/actions";
+import { AuthenticationStatus } from "../../../../constants";
 
-const Landing = ({ handleSwitchToForm }) => {
+const { SIGNUP } = AuthenticationStatus;
+
+const Landing = () => {
+  const dispatch = useDispatch();
+
+  const handleSwitchToForm = () => {
+    dispatch(switchAuthenticationStatus({ status: SIGNUP }));
+  };
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className={`flex pt-20 pb-10`}>

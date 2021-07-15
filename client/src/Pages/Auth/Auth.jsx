@@ -1,56 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AuthForm, Landing } from "./components";
-import { login, signup } from "./requests";
-import { loginSuccess } from "../../store/actions";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { AuthForm, Landing, TwoFactorAuthentication } from "./components";
+import { AuthenticationStatus } from "../../constants";
+
+const { LANDING, SIGNUP, LOGIN, OFFER2FA, AUTHENTICATED } =
+  AuthenticationStatus;
 
 const Auth = () => {
-  const { userId } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { authenticationStatus } = useSelector((state) => state.auth);
 
-  const [showForm, setShowForm] = useState(false);
-  const [backendErrors, setBackendErrors] = useState([]);
+  const component = useMemo(() => {
+    switch (authenticationStatus) {
+      default: case LANDING: return <Landing />;
 
-  const handleSwitch = () => setShowForm(!showForm);
-
-  const handleLogin = async (formData) => {
-    try {
-      const { data } = await login(formData);
-
-      dispatch(loginSuccess(data));
-    } catch ({ response: { data } }) {
-      console.log(data);
-      setBackendErrors([
-        { name: "email", message: "" },
-        { name: "password", message: "" },
-        { name: "noField", message: data.message },
-      ]);
+      case LOGIN: case SIGNUP: return <AuthForm />
+      case OFFER2FA: return <TwoFactorAuthentication />;
+      case AUTHENTICATED: return <div>a</div>
     }
-  };
+  }, [authenticationStatus]);
 
-  const handleSignup = async (formData) => {
-    try {
-      const { data } = await signup(formData);
-      console.log(data);
-    } catch ({ response: { data } }) {
-      console.log(data);
-      setBackendErrors([{ name: data.field, message: data.message }]);
-    }
-  };
-  return (
-    <div className="w-screen h-screen">
-      {showForm ? (
-        <AuthForm
-          handleSwitchToLanding={handleSwitch}
-          handleLogin={handleLogin}
-          handleSignup={handleSignup}
-          backendErrors={backendErrors}
-        />
-      ) : (
-        <Landing handleSwitchToForm={handleSwitch} />
-      )}
-    </div>
-  );
+  return <div className="w-screen h-screen">{component}</div>;
 };
 
 export default Auth;

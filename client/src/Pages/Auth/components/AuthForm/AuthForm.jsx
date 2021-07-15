@@ -1,31 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login, signup } from "../../requests";
+import { loginSuccess, signupSuccess, setBackendErrors } from "../../../../store/actions";
 import { Form } from "../../../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  checkRequiredValue as valueMissing,
-  validateEmailAddress as invalidEmail,
-} from "@billyjames/util-packages";
+import { checkRequiredValue as valueMissing, validateEmailAddress as invalidEmail } from "@billyjames/util-packages";
 import commonPassword from "common-password-checker";
+import { AuthenticationStatus } from "../../../../constants";
+import { switchAuthenticationStatus } from "../../../../store/actions";
 
-const LOGIN = "LOGIN";
-const SIGNUP = "SIGNUP";
+const { LANDING, LOGIN, SIGNUP } = AuthenticationStatus;
 
-const AuthForm = ({
-  handleSwitchToLanding,
-  handleSignup,
-  handleLogin,
-  backendErrors,
-}) => {
-  const [mode, setMode] = useState(SIGNUP);
+const AuthForm = () => {
+  const { authenticationStatus, backendErrors } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const [password, setPassword] = useState("");
 
-  const handleSwitchMode = () => {
-    if (mode === LOGIN) return setMode(SIGNUP);
-    return setMode(LOGIN);
+  const handleSwitchMode = ({ showLanding } = { showLanding: false }) => {
+
+    dispatch(setBackendErrors([]));
+
+    if (showLanding) return dispatch(switchAuthenticationStatus({ status: LANDING }));
+
+    if (authenticationStatus === LOGIN) return dispatch(switchAuthenticationStatus({ status: SIGNUP }));
+    return dispatch(switchAuthenticationStatus({ status: LOGIN }));
+    
+  };
+
+  const handleLogin = async (formData) => {
+    try {
+      const { data } = await login(formData);
+
+      dispatch(loginSuccess(data));
+    } catch ({ response: { data } }) {
+      console.log(data);
+      dispatch(setBackendErrors([{ name: "email", message: "" }, { name: "password", message: "" }, { name: "noField", message: data.message }]));
+    }
+  };
+
+  const handleSignup = async (formData) => {
+    try {
+      const { data } = await signup(formData);
+      dispatch(signupSuccess(data));
+    } catch ({ response: { data } }) {
+      dispatch(setBackendErrors([{ name: data.field, message: data.message }]))
+    }
   };
 
   const onSubmit = (data) => {
-    if (mode === LOGIN) {
+    if (authenticationStatus === LOGIN) {
       const { email, password } = data;
       return handleLogin({ email, password });
     }
@@ -34,24 +58,27 @@ const AuthForm = ({
 
   return (
     <Form onSubmit={onSubmit} className="p-5" customErrors={backendErrors}>
+
       <button
         type="button"
         className="text-sm text-brand flex w-11 items-center justify-between"
-        onClick={handleSwitchToLanding}
+        onClick={() => handleSwitchMode({ landing: true })}
       >
         <FontAwesomeIcon icon="chevron-left" />
-        Back
+        <span>Back</span>
       </button>
+
       <div className="w-full mb-2 flex justify-end">
         <Form.Switcher
           onClick={handleSwitchMode}
           text={
-            mode === SIGNUP
+            authenticationStatus === SIGNUP
               ? "Already have an account? Tap here"
               : "Need to sign up? Tap here"
           }
         />
       </div>
+
       <Form.Input
         name="username"
         label="Username"
@@ -62,9 +89,10 @@ const AuthForm = ({
               "Username must be at least 3 characters",
           },
         }}
-        hide={mode === LOGIN}
+        hide={authenticationStatus === LOGIN}
         autoComplete="off"
       />
+
       <Form.Input
         name="email"
         label="Email address"
@@ -76,6 +104,7 @@ const AuthForm = ({
           },
         }}
       />
+      
       <Form.Input
         name="password"
         label="Password"
@@ -91,6 +120,7 @@ const AuthForm = ({
           },
         }}
       />
+
       <Form.Input
         name="repeatPassword"
         label="Repeat password"
@@ -101,12 +131,17 @@ const AuthForm = ({
               repeatPassword === password || "Passwords must match",
           },
         }}
-        hide={mode === LOGIN}
+        hide={authenticationStatus === LOGIN}
       />
+
       <Form.Error className="px-2" />
+
       <div className="mt-8 flex flex-col items-center">
-        <Form.Submit text={mode === SIGNUP ? "CREATE ACCOUNT" : "LOG IN"} />
+        <Form.Submit
+          text={authenticationStatus === SIGNUP ? "CREATE ACCOUNT" : "LOG IN"}
+        />
       </div>
+
     </Form>
   );
 };

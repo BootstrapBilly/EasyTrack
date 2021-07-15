@@ -7,7 +7,6 @@ const Form = ({ children, onSubmit, className, customErrors }) => {
   const { handleSubmit, setError } = methods;
 
   useEffect(() => {
-    console.log(customErrors);
     if (customErrors?.length) {
       customErrors.forEach(({ name, message }) =>
         setError(name, {
