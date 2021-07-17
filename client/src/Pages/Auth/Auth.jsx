@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { AuthForm, Landing, TwoFactorAuthentication } from "./components";
 import { AuthenticationStatus } from "../../constants";
 
-const { LANDING, SIGNUP, LOGIN, OFFER2FA, AUTHENTICATED } =
-  AuthenticationStatus;
+const { LANDING, SIGNUP, LOGIN, OFFER2FA } = AuthenticationStatus;
 
 const Auth = () => {
   const { authenticationStatus } = useSelector((state) => state.auth);
@@ -15,7 +14,6 @@ const Auth = () => {
 
       case LOGIN: case SIGNUP: return <AuthForm />
       case OFFER2FA: return <TwoFactorAuthentication />;
-      case AUTHENTICATED: return <div>a</div>
     }
   }, [authenticationStatus]);
 
