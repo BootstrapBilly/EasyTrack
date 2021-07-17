@@ -3,12 +3,21 @@ import { TextField } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Input = ({ name, validation, hide, ...props }) => {
+const Input = ({ name, validation, hide, canHaveNoFieldError, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     formState: { errors },
+    clearErrors,
   } = useFormContext();
+
+  const { noField: hasNoFieldError } = errors;
+  
+  const onChange = () => {
+    if(canHaveNoFieldError && hasNoFieldError){
+      clearErrors();
+    }
+  }
 
   if (hide) return null;
 
@@ -22,6 +31,7 @@ const Input = ({ name, validation, hide, ...props }) => {
         helperText={[name] in errors && errors[name].message}
         {...props}
         type={showPassword ? "text" : props.type || "text"}
+        onChange={onChange}
       />
       {props.type === "password" && (
         <FontAwesomeIcon

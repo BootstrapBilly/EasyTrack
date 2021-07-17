@@ -31,10 +31,8 @@ const AuthForm = () => {
   const handleLogin = async (formData) => {
     try {
       const { data } = await login(formData);
-
       dispatch(loginSuccess(data));
     } catch ({ response: { data } }) {
-      console.log(data);
       dispatch(setBackendErrors([{ name: "email", message: "" }, { name: "password", message: "" }, { name: "noField", message: data.message }]));
     }
   };
@@ -103,6 +101,7 @@ const AuthForm = () => {
               !invalidEmail(email) || "Enter a valid email address",
           },
         }}
+        canHaveNoFieldError={authenticationStatus === LOGIN}
       />
       
       <Form.Input
@@ -119,6 +118,7 @@ const AuthForm = () => {
               !commonPassword(password) || "Common password, use a better one",
           },
         }}
+        canHaveNoFieldError={authenticationStatus === LOGIN}
       />
 
       <Form.Input
