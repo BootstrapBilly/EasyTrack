@@ -53,7 +53,7 @@ const AuthForm = () => {
     }
     return handleSignup(data);
   };
-
+console.log(password);
   return (
     <Form onSubmit={onSubmit} className="p-5" customErrors={backendErrors}>
 
@@ -108,7 +108,7 @@ const AuthForm = () => {
         name="password"
         label="Password"
         type="password"
-        onChange={({ target }) => setPassword(target.value)}
+        onChange={(value) => setPassword(value)}
         validation={{
           validate: {
             length8: (password) =>

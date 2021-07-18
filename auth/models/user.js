@@ -15,8 +15,11 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    resetToken:{type:String},
-    tokenExpiration:{type:Number},
+    phoneNumber: {type:String},
+    resetToken: {type:String},
+    tokenExpiration: {type:Number},
+    code2fa: {type: String, minLength:6, maxLength:6},
+    expiry2fa: {type:Number},
 });
 
 module.exports = mongoose.model("User", userSchema);

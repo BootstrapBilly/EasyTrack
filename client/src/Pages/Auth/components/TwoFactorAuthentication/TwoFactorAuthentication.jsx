@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Lock from "../../../../Assets/2fa-lock.svg";
-import { Prompt, Form2fa } from "./components";
+import { Offer2fa, Collect2fa } from "./components";
 import { switchAuthenticationStatus } from "../../../../store/actions";
 import { AuthenticationStatus } from "../../../../constants";
 
-const { AUTHENTICATED } = AuthenticationStatus;
+const { AUTHENTICATED, COLLECT2FAPHONENUMBER, VERIFY2FA } = AuthenticationStatus;
 
 const TwoFactorAuthentication = () => {
   const dispatch = useDispatch();
+  const { authenticationStatus } = useSelector((state) => state.auth);
 
-  const [showForm2fa, setShowForm2fa] = useState(false);
+  const handleNoThanks = () =>  dispatch(switchAuthenticationStatus({status: AUTHENTICATED}))
 
-  const handleNo = () => {
-    dispatch(switchAuthenticationStatus({status: AUTHENTICATED}))
-  }
-
-  const handleYes = () => {
-    setShowForm2fa(true);
-  }
+  const component = useMemo(() => {
+      switch(authenticationStatus){
+        default: return <Offer2fa handleNoThanks={handleNoThanks}/>;
+        case COLLECT2FAPHONENUMBER: return <Collect2fa handleNoThanks={handleNoThanks} />;
+        case VERIFY2FA: return <div>haha</div>;
+      }
+  }, [authenticationStatus])
 
   return(
     <div className={`flex flex-col pt-6 pb-10 items-center px-10`}>
@@ -26,8 +27,8 @@ const TwoFactorAuthentication = () => {
           2 Factor Authentication
         </h2>
         <img src={Lock} className="px-8 h-32" alt="Lock icon - locked by ibrandify from the Noun Project" longdesc="https://thenounproject.com/search/?q=lock&i=2249572" />
-
-        {showForm2fa ? <Form2fa handleNo={handleNo} /> : <Prompt handleNo={handleNo} handleYes={handleYes} />}
+        
+        {component}
 
     </div>
   )

@@ -3,18 +3,26 @@ import { Form } from "../../../../../../components";
 import { Button } from "../../../../../../components";
 import { validatePhoneNumber as invalidPhoneNumber } from "@billyjames/util-packages";
 import { generate2facode } from '../../../../requests';
+import { useDispatch, useSelector } from 'react-redux';
+import { switchAuthenticationStatus } from '../../../../../../store/actions/auth-actions';
+import { AuthenticationStatus } from '../../../../../../constants';
 
-const Form2fa = ({handleNo}) => {
-    const onSubmit = async (formData) => {
+const { VERIFY2FA } = AuthenticationStatus;
+
+const Collect2fa = ({handleNoThanks}) => {
+    const dispatch = useDispatch();
+    const { userId } = useSelector((state) => state.auth);
+
+    const onSubmit = async ({phoneNumber}) => {
         try {
-            const a = await generate2facode(formData);
-          console.log(a);
-          //dispatch(loginSuccess(data));
+            const { data } = await generate2facode({userId, phoneNumber});
+            if(data.success) { dispatch(switchAuthenticationStatus({status: VERIFY2FA }))}
         } catch ({ response: { data } }) {
             console.log(data)
          // dispatch(setBackendErrors([{ name: "email", message: "" }, { name: "password", message: "" }, { name: "noField", message: data.message }]));
         }
       };
+
     return (
         <Form onSubmit={onSubmit} className="w-full mt-2">
             <div className="mt-4">
@@ -34,10 +42,10 @@ const Form2fa = ({handleNo}) => {
             <div className="flex flex-col pt-6 pb-2 px-2">
                 <span>A code will be sent to your phone when you attempt to log in.</span>
                 <span className="mt-2">The code will ensure that <b>you</b> and no one else is trying to log in.</span>
-                <div className="w-1/2 self-center mt-6"><Button variant="danger" onClick={handleNo}>NO THANKS</Button></div>
+                <div className="w-1/2 self-center mt-6"><Button variant="danger" onClick={handleNoThanks}>NO THANKS</Button></div>
             </div>
         </Form>
     )
 }
 
-export default Form2fa;
+export default Collect2fa;

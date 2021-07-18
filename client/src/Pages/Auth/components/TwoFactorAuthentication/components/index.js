@@ -1,2 +1,2 @@
-export { Prompt } from "./Prompt";
-export { Form2fa } from "./Form2fa";
+export { Offer2fa } from "./Offer2fa";
+export { Collect2fa } from "./Collect2fa";

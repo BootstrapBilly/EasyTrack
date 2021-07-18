@@ -22,6 +22,7 @@
     "@billyjames/util-packages": "^1.0.1",
     "bcrypt": "^5.0.1",
     "common-password-checker": "^0.1.0",
+    "cryptr": "^6.0.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
