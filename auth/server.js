@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const express = require("express");
 const mongoose = require("mongoose");
-const { signup, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
+const { signup, generate2facode, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
 const helmet = require("helmet");
 
@@ -26,6 +26,7 @@ server.use(router);
 
 // routes
 router.post("/signup", signup);
+router.post("/generate2facode", generate2facode);
 router.post("/login", login);
 router.post("/delete-user", deleteUser);
 router.post("/password-reset", generateResetEmail);

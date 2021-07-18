@@ -6,14 +6,14 @@ const Button = ({children, style, variant, onClick}) => {
     const background = useMemo(() => {
         switch(variant){
             default: return undefined;
-            case "success": return "#ACD1AF";
-            case "danger": return "#ff9b9b";
+            case "success": return "#50C878";
+            case "danger": return "#FF5733";
         }
     }, [variant]);
 
     return (
         <ButtonComponent variant="contained" fullWidth className="h-12 shadow" type="button" style={{background, ...style}} onClick={onClick}>
-            {children}
+            <span className="font-medium text-white">{children}</span>
         </ButtonComponent>
     )
 }

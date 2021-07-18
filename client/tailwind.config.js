@@ -9,6 +9,7 @@ module.exports = {
         medium: "#808080",
       },
       red: "#f44336",
+      white: "#ffffff"
     },
     extend: {},
   },

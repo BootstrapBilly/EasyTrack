@@ -16,7 +16,7 @@ library.add(faChevronLeft, faEye, faEyeSlash);
 const App = () => {
   const { userId, authenticationStatus } = useSelector((state) => state.auth);
 
-  if(!userId || authenticationStatus !== AUTHENTICATED ) return <Auth />
+  if(!userId || authenticationStatus !== AUTHENTICATED) return <Auth />
 
   return (
     <div className="App">
