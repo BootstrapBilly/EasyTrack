@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Lock from "../../../../Assets/2fa-lock.svg";
-import { Offer2fa, Collect2fa } from "./components";
+import { Offer2fa, Collect2fa, Verify2fa } from "./components";
 import { switchAuthenticationStatus } from "../../../../store/actions";
 import { AuthenticationStatus } from "../../../../constants";
 
@@ -17,7 +17,7 @@ const TwoFactorAuthentication = () => {
       switch(authenticationStatus){
         default: return <Offer2fa handleNoThanks={handleNoThanks}/>;
         case COLLECT2FAPHONENUMBER: return <Collect2fa handleNoThanks={handleNoThanks} />;
-        case VERIFY2FA: return <div>haha</div>;
+        case VERIFY2FA: return <Verify2fa />;
       }
   }, [authenticationStatus])
 

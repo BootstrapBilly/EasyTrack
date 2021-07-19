@@ -53,7 +53,7 @@ const AuthForm = () => {
     }
     return handleSignup(data);
   };
-console.log(password);
+
   return (
     <Form onSubmit={onSubmit} className="p-5" customErrors={backendErrors}>
 
@@ -89,6 +89,7 @@ console.log(password);
         }}
         hide={authenticationStatus === LOGIN}
         autoComplete="off"
+        className="mb-2"
       />
 
       <Form.Input
@@ -102,13 +103,17 @@ console.log(password);
           },
         }}
         canHaveNoFieldError={authenticationStatus === LOGIN}
+        className="mb-2"
       />
       
       <Form.Input
         name="password"
         label="Password"
         type="password"
-        onChange={(value) => setPassword(value)}
+        onKeyUp={({target: { value }}) => {
+          console.log(value);
+          setPassword(value)
+        }}
         validation={{
           validate: {
             length8: (password) =>
@@ -119,6 +124,7 @@ console.log(password);
           },
         }}
         canHaveNoFieldError={authenticationStatus === LOGIN}
+        className="mb-2"
       />
 
       <Form.Input
@@ -132,11 +138,12 @@ console.log(password);
           },
         }}
         hide={authenticationStatus === LOGIN}
+        className="mb-2"
       />
 
       <Form.Error className="px-2" />
 
-      <div className="mt-8 flex flex-col items-center">
+      <div className="mt-8 flex flex-col items-center w-full">
         <Form.Submit
           text={authenticationStatus === SIGNUP ? "CREATE ACCOUNT" : "LOG IN"}
         />

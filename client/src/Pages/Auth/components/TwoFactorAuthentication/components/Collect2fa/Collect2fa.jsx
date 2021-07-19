@@ -36,6 +36,7 @@ const Collect2fa = ({handleNoThanks}) => {
                         validUkNumber: (v) => !invalidPhoneNumber(v) || "Enter a valid phone number"
                     }
                 }}
+                className="mb-2"
             />
             <div className="mt-4"><Form.Submit text="SECURE MY ACCOUNT" /></div>
             </div>

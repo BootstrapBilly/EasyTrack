@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Button as ButtonComponent } from "@material-ui/core";
 
-const Button = ({children, style, variant, onClick}) => {
+const Button = ({children, size, style, variant, onClick}) => {
 
     const background = useMemo(() => {
         switch(variant){
@@ -11,8 +11,17 @@ const Button = ({children, style, variant, onClick}) => {
         }
     }, [variant]);
 
+    const height = useMemo(() => {
+        switch(size){
+            default: case "lg": return "h-12";
+            case "sm": return "h-6";
+            case "md": return "h-10";
+        }
+    }, [variant]);
+
+
     return (
-        <ButtonComponent variant="contained" fullWidth className="h-12 shadow" type="button" style={{background, ...style}} onClick={onClick}>
+        <ButtonComponent variant="contained" fullWidth className={`${height} shadow`} type="button" style={{background, ...style}} onClick={onClick}>
             <span className="font-medium text-white">{children}</span>
         </ButtonComponent>
     )

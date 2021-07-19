@@ -3,7 +3,18 @@ import { TextField } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Input = ({ name, validation, hide, onChange, canHaveNoFieldError, ...props }) => {
+const Input = ({ 
+  name, 
+  validation, 
+  hide, 
+  onChange, 
+  maxLength = undefined, 
+  className = "",
+  reference,
+  canHaveNoFieldError, 
+  onKeyUp,
+  ...props 
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -23,16 +34,19 @@ const Input = ({ name, validation, hide, onChange, canHaveNoFieldError, ...props
   if (hide) return null;
 
   return (
-    <div className="mb-2 flex items-center relative">
+    <div className={`flex items-center relative ${className}`}>
       <TextField
         variant="outlined"
         fullWidth
         {...register(name, { ...validation })}
+        {...props}
         error={[name] in errors}
         helperText={[name] in errors && errors[name].message}
-        {...props}
         type={showPassword ? "text" : props.type || "text"}
-        onChange={handleChange}
+        onKeyDown={handleChange}
+        inputProps={{ maxLength }}
+        inputRef={reference}
+        onKeyUp={onKeyUp}
       />
       {props.type === "password" && (
         <FontAwesomeIcon
@@ -47,6 +61,7 @@ const Input = ({ name, validation, hide, onChange, canHaveNoFieldError, ...props
 
 Input.defaultProps = {
   onChange: () => {},
+  onKeyUp: () => {},
 }
 
 export default Input;

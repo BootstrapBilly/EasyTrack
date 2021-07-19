@@ -1,0 +1,1 @@
+export { default as Verify2fa } from "./Verify2fa"; 
