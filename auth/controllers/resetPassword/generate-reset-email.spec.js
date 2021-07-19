@@ -33,8 +33,6 @@ test.before((t) => {
 });
 
 test("should return the correct response when the given email is invalid", async (t) => {    
-    // t.context.models.User.findOne.resolves(null);
-
     await t.context.generateResetEmail({ body: { email: ""}}, t.context.res);
 
     t.true(t.context.res.status.calledWithExactly(424));

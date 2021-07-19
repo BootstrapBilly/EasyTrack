@@ -1,6 +1,6 @@
-const { User } = require("../models");
+const { User } = require("../../models");
 const { checkRequiredValue, validateEmailAddress } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, attackDetectedResponse, sanitize } = require("../util");
+const { userErrorResponse, serverErrorResponse, attackDetectedResponse, sanitize } = require("../../util");
 const commonPassword = require("common-password-checker");
 const bcrypt = require('bcrypt');
 

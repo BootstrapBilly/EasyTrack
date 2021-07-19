@@ -1,12 +1,12 @@
-const { User } = require("../models");
-const { serverErrorResponse, userErrorResponse } = require("../util");
+/* eslint-disable no-undef */
+const { User } = require("../../models");
+const { serverErrorResponse, userErrorResponse } = require("../../util");
 const crypto = require("crypto"); // generate random code for the text
 const Cryptr = require('cryptr'); // encrypt/decrypt phone number
 const cryptr = new Cryptr(process.env.ENCRYPTIONKEY);
 const messagebird = require("messagebird")(process.env.MESSAGEBIRDKEY);
 
 const generate2facode = async (req, res) => {      
-  console.log(req.body, "generate")
     try {
       // extract phone number and user id from req body
       const { phoneNumber, userId } = req.body; // phone number is only sent when setting up 2fa, will be stored hashed in the db otherwise
@@ -21,23 +21,17 @@ const generate2facode = async (req, res) => {
         await user.save(); // and save it
       }
 
-      // generate a random token 
       const token = crypto.randomBytes(3).toString('hex');//generate a random token
-      
-      user.code2fa = token;
-      user.expiry2fa = Date.now() + 900000;
+     
+      user.code2fa = token; // store the token on the user
+      user.expiry2fa = Date.now() + 900000; // set expiry date for 15 mins from now
 
       await user.save();
-
-      // await User.findByIdAndUpdate(userId, { code2fa: token, expiry2fa: Date.now() + 900000 }); // store the token with 15 min expiry
-
+      console.log(1) 
       // generate a text message for the user with the given code
       const textMessage = { originator: 'EasyTrack', recipients: [cryptr.decrypt(user.phoneNumber)], body: `${token} is your EasyTrack verification code`};
-
-      messagebird.messages.create(textMessage, (err, res) => {
-        console.log(err);
-        console.log(res);
-      });
+      console.log(2) 
+      messagebird.messages.create(textMessage, () => {});
 
       return res.status(200).json({ success: true })
     }

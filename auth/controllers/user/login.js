@@ -1,5 +1,5 @@
-const { User } = require("../models");
-const { userErrorResponse, serverErrorResponse } = require("../util");
+const { User } = require("../../models");
+const { userErrorResponse, serverErrorResponse } = require("../../util");
 const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {

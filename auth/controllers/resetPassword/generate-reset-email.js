@@ -1,7 +1,7 @@
-const { User } = require("../models");
+const { User } = require("../../models");
 const crypto = require("crypto");
 const { validateEmailAddress } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, sendPasswordResetEmail } = require("../util");
+const { userErrorResponse, serverErrorResponse, sendPasswordResetEmail } = require("../../util");
 
 const generateResetEmail = async (req, res) => {
     const { email } = req.body;

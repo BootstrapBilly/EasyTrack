@@ -17,7 +17,7 @@ const TwoFactorAuthentication = () => {
       switch(authenticationStatus){
         default: return <Offer2fa handleNoThanks={handleNoThanks}/>;
         case COLLECT2FAPHONENUMBER: return <Collect2fa handleNoThanks={handleNoThanks} />;
-        case VERIFY2FA: return <Verify2fa />;
+        case VERIFY2FA: return <Verify2fa handleNoThanks={handleNoThanks} />;
       }
   }, [authenticationStatus])
 

@@ -1,10 +1,6 @@
-const signup = require("./signup");
-const generate2facode = require("./generate-2fa-code");
-const verify2facode = require("./verify-2fa-code");
-const login = require("./login");
-const deleteUser = require("./delete-user");
-const generateResetEmail = require("./generate-reset-email");
-const resetPassword = require("./reset-password");
+const { signup, login, deleteUser } = require("./user");
+const { generate2facode, verify2facode } = require("./2fa");
+const { generateResetEmail, resetPassword } = require("./resetPassword");
 
 module.exports = {
     signup,

@@ -1,5 +1,5 @@
-const { User } = require("../models");
-const { serverErrorResponse, userErrorResponse } = require("../util");
+const { User } = require("../../models");
+const { serverErrorResponse, userErrorResponse } = require("../../util");
 
 const verify2facode = async (req, res) => {      
     try {
@@ -18,7 +18,7 @@ const verify2facode = async (req, res) => {
 
       // update the user
       await user.update({ $unset: { code2fa: "", expiry2fa: "" } }) // remove the token and expiry
-        
+
       return res.status(200).json({ success: true })
     }
     catch (error) { // if something fails in the try block

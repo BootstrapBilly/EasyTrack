@@ -8,7 +8,7 @@ import { Button } from "../../../../../../components";
 
 const { AUTHENTICATED } = switchAuthenticationStatus;
 
-const Verify2fa = () => {
+const Verify2fa = ({handleNoThanks}) => {
     const { userId, backendErrors } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
@@ -22,6 +22,7 @@ const Verify2fa = () => {
             }
             cell.value = ""
         })
+        dispatch(setBackendErrors([]));
     }
 
     const onSubmit = async (code) => {
@@ -45,9 +46,8 @@ const Verify2fa = () => {
 
       const onResend = throttle(async () => {
         try {
-            const { data } = await generate2facode({userId});
-
-            console.log(data);
+            await generate2facode({userId});
+            dispatch(setBackendErrors([]));
         } catch ({ response: { data } }) {
            console.log(data);
         }
@@ -60,7 +60,7 @@ const Verify2fa = () => {
             && inputRefs.current[index].value
         ){
             const next = inputRefs.current[index + 1];
-            
+
             if (next) { next.focus() }
         }
     };
@@ -71,7 +71,7 @@ const Verify2fa = () => {
                 <div>A verification code was just sent to your mobile number</div>
                 <div className="w-full flex justify-between items-center">
                 <div className="mt-2">Enter it below</div>
-                    <div className="w-1/4 mt-1"><Button variant="danger" size="sm" onClick={resetForm}>Clear</Button></div>
+                    <div className="w-1/4 mt-1"><Button variant="danger-outline" size="sm" onClick={resetForm}>Reset</Button></div>
                 </div>
             </div>
             <div className="flex mt-3">
@@ -88,7 +88,8 @@ const Verify2fa = () => {
                 })}
             </div>
             <Form.Error className="px-2 mt-1" />
-            <Form.Submit text="Verify" className="mt-3"/>
+            <Form.Submit text="Verify" className="mt-4 mb-3"/>
+            <Button variant="danger" onClick={handleNoThanks}>No Thanks</Button>
             <button type="button" className="text-grey-medium mt-6" onClick={onResend}>Didn't receive a code? Tap here to resend it</button>
         </Form>
     )

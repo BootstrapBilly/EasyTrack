@@ -1,6 +1,5 @@
-const { User } = require("../models");
-const crypto = require("crypto");
-const { userErrorResponse, serverErrorResponse } = require("../util");
+const { User } = require("../../models");
+const { userErrorResponse, serverErrorResponse } = require("../../util");
 const bcrypt = require('bcrypt');
 
 const deleteUser = async (req, res) => {

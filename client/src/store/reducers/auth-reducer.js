@@ -5,7 +5,7 @@ const { LANDING, OFFER2FA, AUTHENTICATED } = AuthenticationStatus;
 
 const initialState = {
     userId: null,
-    authenticationStatus: LANDING,
+    authenticationStatus: OFFER2FA,
     backendErrors: [],
 }
 

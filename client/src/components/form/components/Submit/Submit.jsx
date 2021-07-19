@@ -10,6 +10,7 @@ const Submit = ({ text, className }) => {
         fullWidth
         className="h-12 shadow"
         type="submit"
+        style={{fontWeight: 500}}
       >
         {text}
       </Button>

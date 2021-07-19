@@ -43,7 +43,7 @@ const Collect2fa = ({handleNoThanks}) => {
             <div className="flex flex-col pt-6 pb-2 px-2">
                 <span>A code will be sent to your phone when you attempt to log in.</span>
                 <span className="mt-2">The code will ensure that <b>you</b> and no one else is trying to log in.</span>
-                <div className="w-1/2 self-center mt-6"><Button variant="danger" onClick={handleNoThanks}>NO THANKS</Button></div>
+                <div className="mt-6"><Button variant="danger" onClick={handleNoThanks}>NO THANKS</Button></div>
             </div>
         </Form>
     )

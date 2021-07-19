@@ -3,11 +3,12 @@ import { Button as ButtonComponent } from "@material-ui/core";
 
 const Button = ({children, size, style, variant, onClick}) => {
 
-    const background = useMemo(() => {
+    const styling = useMemo(() => {
         switch(variant){
             default: return undefined;
-            case "success": return "#50C878";
-            case "danger": return "#FF5733";
+            case "success": return {background: "#50C878", color: "white"};
+            case "danger": return {background: "#FF5733", color: "white"};
+            case "danger-outline": return {boxShadow: "0px 0px 3px #FF5733", background: "transparent", color: "#FF5733", fontWeight: 400};
         }
     }, [variant]);
 
@@ -21,8 +22,8 @@ const Button = ({children, size, style, variant, onClick}) => {
 
 
     return (
-        <ButtonComponent variant="contained" fullWidth className={`${height} shadow`} type="button" style={{background, ...style}} onClick={onClick}>
-            <span className="font-medium text-white">{children}</span>
+        <ButtonComponent variant="contained" fullWidth className={`${height} shadow`} type="button" style={{fontWeight: 500, ...styling, ...style}} onClick={onClick}>
+           {children}
         </ButtonComponent>
     )
 }
