@@ -1,6 +1,6 @@
 const { User } = require("../../models");
 const { checkRequiredValue, validateEmailAddress } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, attackDetectedResponse, sanitize } = require("../../util");
+const { userErrorResponse, serverErrorResponse, attackDetectedResponse, sanitize, generateJWT } = require("../../util");
 const commonPassword = require("common-password-checker");
 const bcrypt = require('bcrypt');
 
@@ -42,9 +42,12 @@ const signup = async (req, res) => {
             password: hashedPassword,
         })
 
+        const jwt = generateJWT(user._id);
+
         return res.status(201).json({ // send a success response
             success: true,
             id: user._id, // with the user id
+            jwt,
         });
 
     }

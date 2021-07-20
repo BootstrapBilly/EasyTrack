@@ -6,6 +6,7 @@ import { generate2facode } from '../../../../requests';
 import { useDispatch, useSelector } from 'react-redux';
 import { switchAuthenticationStatus } from '../../../../../../store/actions/auth-actions';
 import { AuthenticationStatus } from '../../../../../../constants';
+import { useAuthenticatedRequest } from '../../../../../../hooks';
 
 const { VERIFY2FA } = AuthenticationStatus;
 
@@ -13,12 +14,15 @@ const Collect2fa = ({handleNoThanks}) => {
     const dispatch = useDispatch();
     const { userId } = useSelector((state) => state.auth);
 
+    const { sendRequest } = useAuthenticatedRequest();
+
     const onSubmit = async ({phoneNumber}) => {
         try {
-            const { data } = await generate2facode({userId, phoneNumber});
+            const { data } = await sendRequest("generate2facode", { phoneNumber })
             if(data.success) { dispatch(switchAuthenticationStatus({status: VERIFY2FA }))}
         } catch ({ response: { data } }) {
             console.log(data)
+            // @ todo error handling
          // dispatch(setBackendErrors([{ name: "email", message: "" }, { name: "password", message: "" }, { name: "noField", message: data.message }]));
         }
       };

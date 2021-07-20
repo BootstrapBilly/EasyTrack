@@ -3,14 +3,16 @@ import { throttle } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form } from '../../../../../../components';
 import { setBackendErrors, switchAuthenticationStatus } from '../../../../../../store/actions';
-import { generate2facode, verify2facode } from '../../../../requests';
 import { Button } from "../../../../../../components";
+import { useAuthenticatedRequest } from '../../../../../../hooks';
 
 const { AUTHENTICATED } = switchAuthenticationStatus;
 
 const Verify2fa = ({handleNoThanks}) => {
     const { userId, backendErrors } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+
+    const { sendRequest } = useAuthenticatedRequest();
 
     const inputs = [...Array(6).keys()];
     const inputRefs = useRef([]);
@@ -27,7 +29,7 @@ const Verify2fa = ({handleNoThanks}) => {
 
     const onSubmit = async (code) => {
         try {
-            const { data } = await verify2facode({code, userId});
+            const { data } = await sendRequest("verify2facode", { code })
             if(data.success) { 
                 dispatch(switchAuthenticationStatus({status: AUTHENTICATED }))
                 dispatch(setBackendErrors([]));
@@ -35,7 +37,7 @@ const Verify2fa = ({handleNoThanks}) => {
         } catch ({ response: { data } }) {
             resetForm();
             
-            if(data.resend){ await generate2facode({userId}) }
+            if(data.resend){ await sendRequest("generate2facode", {})}
             
             return dispatch(setBackendErrors([
                 { name: "0", message: "" }, { name: "1", message: "" }, { name: "2", message: "" }, 
@@ -46,9 +48,10 @@ const Verify2fa = ({handleNoThanks}) => {
 
       const onResend = throttle(async () => {
         try {
-            await generate2facode({userId});
+            await sendRequest("generate2facode", {})
             dispatch(setBackendErrors([]));
         } catch ({ response: { data } }) {
+            // @ todo error handling
            console.log(data);
         }
       }, 30000)

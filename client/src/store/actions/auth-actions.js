@@ -3,20 +3,20 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SWITCH_AUTHENTICATION_STATUS = "SWITCH_AUTHENTICATION_STATUS";
 export const SET_BACKEND_ERRORS = "SET_BACKEND_ERRORS";
 
-export const loginSuccess = ({ id }) => {
+export const loginSuccess = ({ id, jwt }) => {
     return async dispatch => {
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: { userId: id }
+            payload: { userId: id, jwt }
         })
     }
 }
 
-export const signupSuccess = ({ id }) => {
+export const signupSuccess = ({ id, jwt }) => {
     return async dispatch => {
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: { userId: id }
+            payload: { userId: id, jwt }
         })
     }
 }

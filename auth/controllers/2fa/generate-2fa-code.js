@@ -27,10 +27,10 @@ const generate2facode = async (req, res) => {
       user.expiry2fa = Date.now() + 900000; // set expiry date for 15 mins from now
 
       await user.save();
-      console.log(1) 
+
       // generate a text message for the user with the given code
       const textMessage = { originator: 'EasyTrack', recipients: [cryptr.decrypt(user.phoneNumber)], body: `${token} is your EasyTrack verification code`};
-      console.log(2) 
+
       messagebird.messages.create(textMessage, () => {});
 
       return res.status(200).json({ success: true })

@@ -5,8 +5,10 @@ const { LANDING, OFFER2FA, AUTHENTICATED } = AuthenticationStatus;
 
 const initialState = {
     userId: null,
-    authenticationStatus: OFFER2FA,
+    jwt: null,
+    authenticationStatus: LANDING,
     backendErrors: [],
+    test: "yes",
 }
 
 const authReducer = (state = initialState, { type, payload }) => {

@@ -4,34 +4,38 @@ const mongoose = require("mongoose");
 const { signup, generate2facode, verify2facode, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
 const helmet = require("helmet");
+const { verifyjwt, setAccessHeaders } = require("./middleware");
+const cors = require('cors')
 
 // config
 const server = express();
 const router = express.Router();
+const protectedRouter = express.Router();
 env.config();
 
 // middleware
 server.use(helmet());
 server.use(express.json());
-server.use((req, res, next) => {
+server.use(cors())
+server.use(setAccessHeaders);
 
-  //! lock this down to frontend url when deployed
-  res.setHeader("Access-Control-Allow-Origin", "*"); 
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-
-});
+// routes 
 server.use(router);
 
-// routes
 router.post("/signup", signup);
-router.post("/generate2facode", generate2facode);
-router.post("/verify2facode", verify2facode);
 router.post("/login", login);
-router.post("/delete-user", deleteUser);
-router.post("/password-reset", generateResetEmail);
-router.post("/reset-password", resetPassword);
+
+// jwt verification
+server.use(verifyjwt);
+
+// protected routes
+server.use(protectedRouter);
+
+protectedRouter.post("/generate2facode", generate2facode);
+protectedRouter.post("/verify2facode", verify2facode);
+protectedRouter.post("/delete-user", deleteUser);
+protectedRouter.post("/password-reset", generateResetEmail);
+protectedRouter.post("/reset-password", resetPassword);
 
 mongoose
   .connect(

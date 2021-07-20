@@ -1,5 +1,5 @@
 const { User } = require("../../models");
-const { userErrorResponse, serverErrorResponse } = require("../../util");
+const { userErrorResponse, serverErrorResponse, generateJWT } = require("../../util");
 const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
@@ -15,9 +15,12 @@ const login = async (req, res) => {
         const passwordValid = await bcrypt.compare(password, user.password); // check if the password is valid
         if(!passwordValid) return userErrorResponse(res, invalidDetails); // send generic error response so email address is not compromised
 
+        const jwt = generateJWT(user._id);
+
         return res.status(200).json({ // send a success response
             success: true,
             id: user._id, // with the user id
+            jwt,
         });
 
     } 
