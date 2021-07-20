@@ -24,7 +24,7 @@ test.before((t) => {
     .noCallThru()
     .noPreserveCache()
     .load("./reset-password.js", {
-        "../models": t.context.models,
+        "../../models": t.context.models,
         "bcrypt": t.context.bcrypt,
     });
 });

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { User } = require("../../models");
-const { serverErrorResponse, userErrorResponse } = require("../../util");
+const { serverErrorResponse, userErrorResponse, sanitize, attackDetectedResponse } = require("../../util");
 const crypto = require("crypto"); // generate random code for the text
 const Cryptr = require('cryptr'); // encrypt/decrypt phone number
 const cryptr = new Cryptr(process.env.ENCRYPTIONKEY);
@@ -9,7 +9,13 @@ const messagebird = require("messagebird")(process.env.MESSAGEBIRDKEY);
 const generate2facode = async (req, res) => {      
     try {
       // extract phone number and user id from req body
-      const { phoneNumber, userId } = req.body; // phone number is only sent when setting up 2fa, will be stored hashed in the db otherwise
+      const { phoneNumber: dirtyPhoneNumber, userId: dirtyUserId } = req.body; // phone number is only sent when setting up 2fa, will be stored hashed in the db otherwise
+
+      // data sanitzation
+      const { malformedReqBody, sanitizedData } = sanitize([dirtyPhoneNumber || "", dirtyUserId]);
+      if (malformedReqBody) return attackDetectedResponse(res); // if the req body is malformed, do not proceed any further
+                  
+      const [phoneNumber, userId] = sanitizedData;
 
       const user = await User.findById(userId); // find the user
       if(!user) return userErrorResponse(res, "No user found"); // if they dont exist, send a response

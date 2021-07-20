@@ -1,15 +1,21 @@
 const { User } = require("../../models");
-const { userErrorResponse, serverErrorResponse, generateJWT } = require("../../util");
+const { userErrorResponse, serverErrorResponse, generateJWT, sanitize, attackDetectedResponse } = require("../../util");
 const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
-
     const invalidDetails = "Email or password combination incorrect, try again";
 
     try {         
+        const { email: dirtyEmail, password: dirtyPassword } = req.body;
+        
+        // data sanitzation
+        const { malformedReqBody, sanitizedData } = sanitize([dirtyEmail, dirtyPassword]);
+        if (malformedReqBody) return attackDetectedResponse(res); // if the req body is malformed, do not proceed any further
+
+        const [email, password] = sanitizedData;
+
         // login detail validation
-        const user = await User.findOne({ email: { $regex: email, $options: "i" } }); // check if user exists
+        const user = await User.findOne({ email: { $regex: email.trim(), $options: "i" } }); // check if user exists
         if(!user) return userErrorResponse(res, invalidDetails); // send generic error response so email address is not compromised
 
         const passwordValid = await bcrypt.compare(password, user.password); // check if the password is valid

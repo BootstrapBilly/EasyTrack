@@ -27,7 +27,7 @@ test.before((t) => {
     .noCallThru()
     .noPreserveCache()
     .load("./generate-reset-email.js", {
-        "../models": t.context.models,
+        "../../models": t.context.models,
         "crypto": t.context.crypto,
     });
 });

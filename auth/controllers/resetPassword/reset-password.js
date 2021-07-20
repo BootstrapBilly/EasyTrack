@@ -5,11 +5,14 @@ const commonPassword = require("common-password-checker");
 const bcrypt = require('bcrypt');
 
 const changePassword = async (req, res) => {
-    const { userId, token, password } = req.body; // extract the required info from the req
     try {
-        //password sanitzation
-        const { malformedReqBody, sanitizedData: sanitzedPassword } = sanitize([password]);
+        const { userId: dirtyUserId, token: dirtyToken, password: dirtyPassword } = req.body; // extract the required info from the req
+
+        // data sanitzation
+        const { malformedReqBody, sanitizedData } = sanitize([dirtyUserId, dirtyToken, dirtyPassword]);
         if (malformedReqBody) return attackDetectedResponse(res); // if the req body is malformed, do not proceed any further
+
+        const [userId, token, password] = sanitizedData;
 
         const user = await User.findOne({ _id: userId, resetToken: token }) //find the user with the given user id and reset token
 
@@ -18,14 +21,14 @@ const changePassword = async (req, res) => {
         if (user.tokenExpiration < Date.now()) return res.status(401).json({ success: false, message: "Your link has expired, please request a new one" }) // token expired, send error response
 
         // password validation
-        const passwordTooShort = checkRequiredValue({ value: sanitzedPassword[0] }, { length: 8 }); // ensure the password is at least 8 characters
+        const passwordTooShort = checkRequiredValue({ value: password }, { length: 8 }); // ensure the password is at least 8 characters
         if (passwordTooShort) return userErrorResponse(res, "Password must be at least 8 characters", { field: "password" }); // if it is too short, send an error response
 
-        const commonPasswordFound = commonPassword(sanitzedPassword[0]);
+        const commonPasswordFound = commonPassword(password);
         if (commonPasswordFound) return userErrorResponse(res, "Common password detected, please use a better one", { field: "password" }); // if it is too short, send an error response
 
         // password hashing
-        const hashedPassword = await bcrypt.hash(sanitzedPassword[0], 12) // hash the sanitized password with a salt of 12
+        const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPTSALT)) // hash the sanitized password with a salt of 12
 
         // update the user
         await user.update({

@@ -29,7 +29,11 @@ const Verify2fa = ({handleNoThanks}) => {
 
     const onSubmit = async (code) => {
         try {
-            const { data } = await sendRequest("verify2facode", { code })
+            const number = Object.entries(code).reduce((acc, current) => {
+                return acc.concat(current[1]);
+            }, []).join("") // convert the code object to a single concatenated number
+
+            const { data } = await sendRequest("verify2facode", { code: number })
             if(data.success) { 
                 dispatch(switchAuthenticationStatus({status: AUTHENTICATED }))
                 dispatch(setBackendErrors([]));

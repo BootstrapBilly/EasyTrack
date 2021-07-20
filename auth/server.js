@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const { signup, generate2facode, verify2facode, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
 const helmet = require("helmet");
-const { verifyjwt, setAccessHeaders } = require("./middleware");
+const { verifyjwt } = require("./middleware");
 const cors = require('cors')
 
 // config
@@ -16,8 +16,9 @@ env.config();
 // middleware
 server.use(helmet());
 server.use(express.json());
-server.use(cors())
-server.use(setAccessHeaders);
+server.use(cors(
+  //{ origin: "https://geteasytrack.web.app"}
+  ))
 
 // routes 
 server.use(router);

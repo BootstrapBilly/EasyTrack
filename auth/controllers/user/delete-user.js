@@ -1,11 +1,17 @@
 const { User } = require("../../models");
-const { userErrorResponse, serverErrorResponse } = require("../../util");
+const { userErrorResponse, serverErrorResponse, sanitize, attackDetectedResponse } = require("../../util");
 const bcrypt = require('bcrypt');
 
 const deleteUser = async (req, res) => {
-    const { userId, password } = req.body;
-
     try {
+        const { userId: dirtyUserId, password: dirtyPassword } = req.body;
+        
+        // data sanitization
+        const { malformedReqBody, sanitizedData } = sanitize([dirtyUserId, dirtyPassword]);
+        if (malformedReqBody) return attackDetectedResponse(res); // if the req body is malformed, do not proceed any further
+
+        const [userId, password] = sanitizedData;
+
         const user = await User.findById(userId)//find the given user id
         if (!user) return userErrorResponse(res, "User not found"); // if they dont exist, send an erroneous reponse
 

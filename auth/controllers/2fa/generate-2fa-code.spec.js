@@ -25,7 +25,7 @@ test.before((t) => {
     .noCallThru()
     .noPreserveCache()
     .load("./generate-2fa-code.js", {
-        "../models": t.context.models,
+        "../../models": t.context.models,
         "crypto": t.context.crypto,
     });
 });
@@ -33,7 +33,7 @@ test.before((t) => {
 test("should return the correct response when the user is not found", async (t) => {    
     t.context.models.User.findById.resolves(null);
 
-    await t.context.generate2facode({ body: { phoneNumer: "07123456789", userId: "1"}}, t.context.res);
+    await t.context.generate2facode({ body: { phoneNumber: "07123456789", userId: "1"}}, t.context.res);
 
     t.true(t.context.res.status.calledWithExactly(424));
 
@@ -42,5 +42,3 @@ test("should return the correct response when the user is not found", async (t) 
         message: "No user found", 
     }))
 })
-
-// @todo -> stub cryptr constructor some how to test this properly

@@ -82,9 +82,7 @@ const AuthForm = () => {
         label="Username"
         validation={{
           validate: {
-            length3: (username) =>
-              !valueMissing({ value: username }, { length: 3 }) ||
-              "Username must be at least 3 characters",
+            length3: (username) => !valueMissing({ value: username }, { length: 3 }) || "Username must be at least 3 characters",
           },
         }}
         hide={authenticationStatus === LOGIN}
@@ -98,8 +96,8 @@ const AuthForm = () => {
         validation={{
           required: "Email Address is required",
           validate: {
-            validEmail: (email) =>
-              !invalidEmail(email) || "Enter a valid email address",
+            validEmail: (email) => !invalidEmail(email) || "Enter a valid email address",
+            noSpaces: (email) => !email.includes(" ") || "Email cannot have spaces",
           },
         }}
         canHaveNoFieldError={authenticationStatus === LOGIN}
@@ -110,17 +108,11 @@ const AuthForm = () => {
         name="password"
         label="Password"
         type="password"
-        onKeyUp={({target: { value }}) => {
-          console.log(value);
-          setPassword(value)
-        }}
+        onKeyUp={({target: { value }}) => { setPassword(value) }}
         validation={{
           validate: {
-            length8: (password) =>
-              !valueMissing({ value: password }, { length: 8 }) ||
-              "Password must be at least 8 characters",
-            common: (password) =>
-              !commonPassword(password) || "Common password, use a better one",
+            length8: (password) => !valueMissing({ value: password }, { length: 8 }) || "Password must be at least 8 characters",
+            common: (password) => !commonPassword(password) || "Common password, use a better one",
           },
         }}
         canHaveNoFieldError={authenticationStatus === LOGIN}
@@ -131,10 +123,10 @@ const AuthForm = () => {
         name="repeatPassword"
         label="Repeat password"
         type="password"
+        onKeyUp={({target: { value }}) => { setPassword(value) }}
         validation={{
           validate: {
-            passwordsMatch: (repeatPassword) =>
-              repeatPassword === password || "Passwords must match",
+            passwordsMatch: (repeatPassword) => repeatPassword === password || "Passwords must match",
           },
         }}
         hide={authenticationStatus === LOGIN}

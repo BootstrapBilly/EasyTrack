@@ -20,7 +20,7 @@ test.before((t) => {
     .noCallThru()
     .noPreserveCache()
     .load("./verify-2fa-code.js", {
-        "../models": t.context.models,
+        "../../models": t.context.models,
     });
 });
 
@@ -40,7 +40,7 @@ test("should return the correct response when user is not found", async (t) => {
 test("should return the correct response when the code does not match", async (t) => {    
     t.context.models.User.findById.resolves({id: 1, code2fa: "2"});
 
-    await t.context.verify2facode({ body: { userId: "1", code: {1: "1"}}}, t.context.res);
+    await t.context.verify2facode({ body: { userId: "1", code: "1"}}, t.context.res);
 
     t.true(t.context.res.status.calledWithExactly(424));
 
@@ -53,7 +53,7 @@ test("should return the correct response when the code does not match", async (t
 test("should return the correct response when the code has expired", async (t) => {    
     t.context.models.User.findById.resolves({id: 1, code2fa: "1", expiry2fa: 0});
 
-    await t.context.verify2facode({ body: { userId: "1", code: {1: "1"}}}, t.context.res);
+    await t.context.verify2facode({ body: { userId: "1", code: "1"}}, t.context.res);
 
     t.true(t.context.res.status.calledWithExactly(401));
 
@@ -67,7 +67,7 @@ test("should return the correct response when the code has expired", async (t) =
 test("should return the correct response when everything is okay", async (t) => {    
     t.context.models.User.findById.resolves({id: 1, code2fa: "1", expiry2fa: 9626679612158, update: sinon.stub()});
 
-    await t.context.verify2facode({ body: { userId: "1", code: {1: "1"}}}, t.context.res);
+    await t.context.verify2facode({ body: { userId: "1", code: "1"}}, t.context.res);
 
     t.true(t.context.res.status.calledWithExactly(200));
 

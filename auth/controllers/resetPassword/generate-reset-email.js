@@ -1,20 +1,26 @@
 const { User } = require("../../models");
 const crypto = require("crypto");
 const { validateEmailAddress } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, sendPasswordResetEmail } = require("../../util");
+const { userErrorResponse, serverErrorResponse, sendPasswordResetEmail, sanitize, attackDetectedResponse } = require("../../util");
 
 const generateResetEmail = async (req, res) => {
-    const { email } = req.body;
-
     const responseMessage = "If your email address was found, we just sent you an email with instructions to reset your password";
 
     try {
+        const { email: dirtyEmail } = req.body;
+
+        // data sanitzation
+        const { malformedReqBody, sanitizedData } = sanitize([dirtyEmail]);
+        if (malformedReqBody) return attackDetectedResponse(res); // if the req body is malformed, do not proceed any further
+        
+        const [email] = sanitizedData;
+
         // email validation
         const invalidEmail = validateEmailAddress(email); // check to see if the email is valid
         if (invalidEmail) return userErrorResponse(res, "Enter a valid email address", { field: "email" }); // if the email is not valid, return an error response
 
         // user validation
-        const user = await User.findOne({ email: { $regex: email, $options: "i" } }); // check if user exists
+        const user = await User.findOne({ email: { $regex: email.trim(), $options: "i" } }); // check if user exists
         if (!user) return userErrorResponse(res, responseMessage); // send generic error response so email address is not compromised
 
         // generate a random token 

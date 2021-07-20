@@ -25,7 +25,7 @@ test.before((t) => {
     .noCallThru()
     .noPreserveCache()
     .load("./login.js", {
-        "../models": t.context.models,
+        "../../models": t.context.models,
         "bcrypt": t.context.bcrypt,
     });
 });
@@ -64,11 +64,6 @@ test("should return the correct response when valid information is supplied", as
     await t.context.login({ body: { email: "", password: "p4ss_w0drd" }}, t.context.res);
 
     t.true(t.context.res.status.calledWithExactly(200));
-
-    t.true(t.context.res.json.calledWith({
-        success: true,
-        id: "a", 
-    }))
 })
 
 
