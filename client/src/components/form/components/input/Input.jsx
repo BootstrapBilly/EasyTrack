@@ -47,12 +47,13 @@ const Input = ({
         inputProps={{ maxLength }}
         inputRef={reference}
         onKeyUp={onKeyUp}
+        onKeyPress={onKeyUp}
       />
-      {props.type === "password" && (
+       {props.type === "password" && (
         <FontAwesomeIcon
           onClick={() => setShowPassword(!showPassword)}
           icon={showPassword ? "eye-slash" : "eye"}
-          className="absolute right-2 text-grey-medium"
+          className="absolute fixed right-2 top-5 text-grey-medium"
         />
       )}
     </div>

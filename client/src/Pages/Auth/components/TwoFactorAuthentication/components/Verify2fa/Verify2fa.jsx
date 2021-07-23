@@ -1,79 +1,64 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { throttle } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form } from '../../../../../../components';
 import { setBackendErrors, switchAuthenticationStatus } from '../../../../../../store/actions';
 import { Button } from "../../../../../../components";
 import { useAuthenticatedRequest } from '../../../../../../hooks';
+import VerificationInput from "react-verification-input";
 
 const { AUTHENTICATED } = switchAuthenticationStatus;
 
 const Verify2fa = ({handleNoThanks}) => {
-    const { userId, backendErrors } = useSelector((state) => state.auth);
+    const [SMScode, setSMScode] = useState("");
+    const [error, setError] = useState();
+
     const dispatch = useDispatch();
 
     const { sendRequest } = useAuthenticatedRequest();
 
-    const inputs = [...Array(6).keys()];
-    const inputRefs = useRef([]);
-
     const resetForm = () => {
-        inputRefs.current.forEach((cell, index) => {
-            if(index === 0){
-                cell.focus();
-            }
-            cell.value = ""
-        })
-        dispatch(setBackendErrors([]));
+        setSMScode("");
+        setError("");
     }
 
-    const onSubmit = async (code) => {
+    const onSubmit = async () => {
         try {
-            const number = Object.entries(code).reduce((acc, current) => {
-                return acc.concat(current[1]);
-            }, []).join("") // convert the code object to a single concatenated number
-
-            const { data } = await sendRequest("verify2facode", { code: number })
+            const { data } = await sendRequest("verify2facode", { code: SMScode })
             if(data.success) { 
                 dispatch(switchAuthenticationStatus({status: AUTHENTICATED }))
-                dispatch(setBackendErrors([]));
+                setError("");
             }
         } catch ({ response: { data } }) {
             resetForm();
             
-            if(data.resend){ await sendRequest("generate2facode", {})}
+            if(data.resend){ await sendRequest("generate2facode", {code: SMScode})}
+
+            return setError(data.message);
             
-            return dispatch(setBackendErrors([
-                { name: "0", message: "" }, { name: "1", message: "" }, { name: "2", message: "" }, 
-                { name: "3", message: "" }, { name: "4", message: "" }, { name: "5", message: "" }, 
-                { name: "noField", message: data.message }]));
         }
       };
 
       const onResend = throttle(async () => {
         try {
             await sendRequest("generate2facode", {})
-            dispatch(setBackendErrors([]));
+            setError("");
         } catch ({ response: { data } }) {
             // @ todo error handling
            console.log(data);
         }
       }, 30000)
 
-    const onChange = (e, index) => {
-        if(
-            e.code 
-            && e.code !== "Backspace"
-            && inputRefs.current[index].value
-        ){
-            const next = inputRefs.current[index + 1];
+      const onChange = (v) => {
+        setSMScode(v);
 
-            if (next) { next.focus() }
+        if(error && v?.length){
+            setError("");
         }
-    };
+      }
    
     return (
-        <Form onSubmit={onSubmit} className="w-full mt-2" customErrors={backendErrors}>
+        <>
             <div className="my-2 p-1">
                 <div>A verification code was just sent to your mobile number</div>
                 <div className="w-full flex justify-between items-center">
@@ -82,23 +67,13 @@ const Verify2fa = ({handleNoThanks}) => {
                 </div>
             </div>
             <div className="flex mt-3">
-                {inputs.map((_, index) => {
-                    return <Form.Input 
-                                name={index.toString()} 
-                                maxLength={1} 
-                                className="m-1" 
-                                key={index.toString()} 
-                                reference={el => inputRefs.current[index] = el} 
-                                canHaveNoFieldError
-                                onKeyUp={(e) => onChange(e, index)}
-                            />
-                })}
+                <VerificationInput value={SMScode} onChange={onChange} removeDefaultStyles classNames={{character: `border ${error && "border-red"} text-brand p-2 w-10 ml-1`, characterSelected: "bg-grey-light"}} />
             </div>
-            <Form.Error className="px-2 mt-1" />
-            <Form.Submit text="Verify" className="mt-4 mb-3"/>
+            <div className="text-red mt-1">{error}</div>
+            <Button variant="brand" className="mt-4 mb-3" onClick={onSubmit}>Verify</Button>
             <Button variant="danger" onClick={handleNoThanks}>No Thanks</Button>
             <button type="button" className="text-grey-medium mt-6" onClick={onResend}>Didn't receive a code? Tap here to resend it</button>
-        </Form>
+        </>
     )
 }
 

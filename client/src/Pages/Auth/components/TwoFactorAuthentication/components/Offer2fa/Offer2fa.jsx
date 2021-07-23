@@ -19,8 +19,8 @@ const Offer2fa = ({handleNoThanks}) => {
             <span className="py-3 text-grey-medium mt-10">This can be added later</span>
 
             <div className="flex w-full justify-between">
-                <Button variant="danger" style={{width: "47%"}} onClick={handleNoThanks}>No</Button>
-                <Button variant="success" style={{width: "47%"}} onClick={handleYes}>Yes</Button>
+                <Button variant="danger" style={{width: "90%"}} onClick={handleNoThanks}>No</Button>
+                <Button variant="success" style={{width: "90%"}} onClick={handleYes}>Yes</Button>
             </div>
         </>
     )

@@ -4,8 +4,8 @@ import { Error, Input, Submit, Switcher } from "./components";
 
 const Form = ({ children, onSubmit, className, customErrors }) => {
   const methods = useForm({ mode: "onChange" });
-  const { handleSubmit, setError } = methods;
-
+  const { handleSubmit, setError} = methods;
+  
   useEffect(() => {
     if (customErrors?.length) {
       customErrors.forEach(({ name, message }) =>

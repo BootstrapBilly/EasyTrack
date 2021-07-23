@@ -9,7 +9,7 @@ const verify2facode = async (req, res) => {
       // data sanitzation
       const { malformedReqBody, sanitizedData } = sanitize([dirtyCode, dirtyUserId]);
       if (malformedReqBody) return attackDetectedResponse(res); // if the req body is malformed, do not proceed any further
-            
+
       const [code, userId] = sanitizedData;
 
       const user = await User.findById(userId); // find the user
@@ -24,6 +24,7 @@ const verify2facode = async (req, res) => {
       return res.status(200).json({ success: true })
     }
     catch (error) { // if something fails in the try block
+      console.log(error)
         return serverErrorResponse(res); // return a server error
     }
 }

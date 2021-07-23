@@ -7,6 +7,7 @@ const verifyjwt = ((req, res, next) => {
     try {
       if (!req.get("Authorization")) return attackDetectedResponse(res); // check if an authorization header is present
       const token = req.get("Authorization").split(" ")[1]; // split the token from the bearer
+
       decodedToken = verifyJWT(token); // verify it
     } catch (err) {
       return serverErrorResponse(res) // return server error if something goes wrong

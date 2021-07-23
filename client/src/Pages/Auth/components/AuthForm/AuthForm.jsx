@@ -15,8 +15,6 @@ const AuthForm = () => {
   const { authenticationStatus, backendErrors } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const [password, setPassword] = useState("");
-
   const handleSwitchMode = ({ showLanding } = { showLanding: false }) => {
 
     dispatch(setBackendErrors([]));
@@ -87,7 +85,7 @@ const AuthForm = () => {
         }}
         hide={authenticationStatus === LOGIN}
         autoComplete="off"
-        className="mb-2"
+        className="mb-4"
       />
 
       <Form.Input
@@ -101,14 +99,13 @@ const AuthForm = () => {
           },
         }}
         canHaveNoFieldError={authenticationStatus === LOGIN}
-        className="mb-2"
+        className="mb-4"
       />
       
       <Form.Input
         name="password"
         label="Password"
         type="password"
-        onKeyUp={({target: { value }}) => { setPassword(value) }}
         validation={{
           validate: {
             length8: (password) => !valueMissing({ value: password }, { length: 8 }) || "Password must be at least 8 characters",
@@ -116,21 +113,7 @@ const AuthForm = () => {
           },
         }}
         canHaveNoFieldError={authenticationStatus === LOGIN}
-        className="mb-2"
-      />
-
-      <Form.Input
-        name="repeatPassword"
-        label="Repeat password"
-        type="password"
-        onKeyUp={({target: { value }}) => { setPassword(value) }}
-        validation={{
-          validate: {
-            passwordsMatch: (repeatPassword) => repeatPassword === password || "Passwords must match",
-          },
-        }}
-        hide={authenticationStatus === LOGIN}
-        className="mb-2"
+        className="mb-4"
       />
 
       <Form.Error className="px-2" />
