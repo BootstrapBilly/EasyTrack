@@ -30,7 +30,8 @@ const AuthForm = () => {
     try {
       const { data } = await login(formData);
       dispatch(loginSuccess(data));
-    } catch ({ response: { data } }) {
+    } 
+    catch ({ response: { data } }) {
       dispatch(setBackendErrors([{ name: "email", message: "" }, { name: "password", message: "" }, { name: "noField", message: data.message }]));
     }
   };
@@ -39,7 +40,8 @@ const AuthForm = () => {
     try {
       const { data } = await signup(formData);
       dispatch(signupSuccess(data));
-    } catch ({ response: { data } }) {
+    } 
+    catch ({ response: { data } }) {
       dispatch(setBackendErrors([{ name: data.field, message: data.message }]))
     }
   };

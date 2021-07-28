@@ -17,7 +17,7 @@ env.config();
 server.use(helmet());
 server.use(express.json());
 server.use(cors(
-  //{ origin: "https://geteasytrack.web.app"}
+  // { origin: "https://geteasytrack.web.app"}
   ))
 
 // routes 

@@ -19,7 +19,7 @@ const Form = ({ children, onSubmit, className, customErrors }) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className={className}>
+      <form onSubmit={handleSubmit(onSubmit)} className={className} data-testid="form__container">
         {children}
       </form>
     </FormProvider>

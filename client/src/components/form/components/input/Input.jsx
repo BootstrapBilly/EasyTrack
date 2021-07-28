@@ -34,7 +34,7 @@ const Input = ({
   if (hide) return null;
 
   return (
-    <div className={`flex items-center relative ${className}`}>
+    <div className={`flex items-center relative ${className}`} data-testid={`input__${name}`}>
       <TextField
         variant="outlined"
         fullWidth

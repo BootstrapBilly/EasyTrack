@@ -14,6 +14,7 @@ const Switcher = ({ text, onClick }) => {
       className="text-sm font-bold text-brand"
       type="button"
       onClick={handleClick}
+      data-testid="auth-form__switcher"
     >
       {text}
     </button>
