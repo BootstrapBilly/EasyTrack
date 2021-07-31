@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup } from "../../requests";
 import { loginSuccess, signupSuccess, setBackendErrors } from "../../../../store/actions";
@@ -59,6 +59,7 @@ const AuthForm = () => {
 
       <button
         type="button"
+        data-testid="auth-form__back-button"
         className="text-sm text-brand flex w-11 items-center justify-between"
         onClick={() => handleSwitchMode({ landing: true })}
       >

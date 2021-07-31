@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { LOGIN_SUCCESS, SET_BACKEND_ERRORS, SIGNUP_SUCCESS, SWITCH_AUTHENTICATION_STATUS } from "../actions"
 import { AuthenticationStatus } from "../../constants"
 

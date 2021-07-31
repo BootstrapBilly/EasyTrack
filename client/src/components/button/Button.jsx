@@ -23,7 +23,7 @@ const Button = ({children, className, size, style, variant, onClick}) => {
 
     return (
         <div className={`${className} w-full`}>
-            <ButtonComponent variant="contained" fullWidth className={`${height} shadow`} type="button" style={{fontWeight: 500, ...styling, ...style}} onClick={onClick}>
+            <ButtonComponent variant="contained" fullWidth className={`${height} shadow`} type="button" style={{fontWeight: 500, ...styling, ...style}} onClick={onClick}     data-testid="button">
                 {children}
             </ButtonComponent>
         </div>

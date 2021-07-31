@@ -51,6 +51,7 @@ const Input = ({
       />
        {props.type === "password" && (
         <FontAwesomeIcon
+          data-testid="input__show-password"
           onClick={() => setShowPassword(!showPassword)}
           icon={showPassword ? "eye-slash" : "eye"}
           className="absolute fixed right-2 top-5 text-grey-medium"

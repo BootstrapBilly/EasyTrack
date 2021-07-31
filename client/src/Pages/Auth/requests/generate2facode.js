@@ -1,8 +1,8 @@
+/* istanbul ignore file */
 import axios from "axios";
 import { BACKEND_URL } from "../../../constants";
 
 const generate2facode = async (data) => {
-    // add try catch for error handling here
     return axios({
         method: 'post',
         headers: { "Content-Type": "application/json" },
