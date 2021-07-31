@@ -15,9 +15,9 @@ const Landing = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className={`flex pt-20 pb-10`}>
-        <img src={Background} className="px-8" alt="logo" />
+    <div className="w-full h-full flex flex-col sm:px-20" data-testid="landing__container">
+      <div className={`flex pt-20 pb-10 lg:justify-center lg:pt-10`}>
+        <img src={Background} className="px-8 lg:h-72" alt="logo" />
       </div>
       <div className="px-5 flex flex-col items-center">
         <h2 className="text-2xl font-mono">EasyTrack</h2>
@@ -25,7 +25,7 @@ const Landing = () => {
           SLOGAN TO BE DETERMINED
         </h2>
       </div>
-      <div className="flex w-full px-5 mt-16">
+      <div className="flex w-full px-5 mt-16 sm:mt-20 sm:w-96 sm:self-center lg:mt-16">
         <Button
           variant="contained"
           color="primary"

@@ -42,7 +42,7 @@ const Input = ({
         {...register(name, { 
           ...validation,
           validate: {
-            ...validation.custom,
+            ...validation?.custom,
             bannedChars: (value) => {
               const bannedChar = preSanitizationCheck({ value });
               if(bannedChar) return `"${bannedChar}" is not allowed`

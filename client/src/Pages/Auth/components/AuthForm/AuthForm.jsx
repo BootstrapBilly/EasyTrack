@@ -55,13 +55,13 @@ const AuthForm = () => {
   };
 
   return (
-    <Form onSubmit={onSubmit} className="p-5" customErrors={backendErrors}>
+    <Form onSubmit={onSubmit} className="p-5 sm:px-36 lg:px-72 2xl:px-96" customErrors={backendErrors}>
 
       <button
         type="button"
         data-testid="auth-form__back-button"
         className="text-sm text-brand flex w-11 items-center justify-between"
-        onClick={() => handleSwitchMode({ landing: true })}
+        onClick={() => handleSwitchMode({ showLanding: true })}
       >
         <FontAwesomeIcon icon="chevron-left" />
         <span>Back</span>
