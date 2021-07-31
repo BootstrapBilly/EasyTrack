@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { preSanitizationCheck } from "@billyjames/util-packages";
 
 const Input = ({ 
   name, 
@@ -38,7 +39,16 @@ const Input = ({
       <TextField
         variant="outlined"
         fullWidth
-        {...register(name, { ...validation })}
+        {...register(name, { 
+          ...validation,
+          validate: {
+            ...validation.custom,
+            bannedChars: (value) => {
+              const bannedChar = preSanitizationCheck({ value });
+              if(bannedChar) return `"${bannedChar}" is not allowed`
+            },
+          }, 
+        })}
         {...props}
         error={[name] in errors}
         helperText={[name] in errors && errors[name].message}

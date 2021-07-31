@@ -82,7 +82,7 @@ const AuthForm = () => {
         name="username"
         label="Username"
         validation={{
-          validate: {
+          custom: {
             length3: (username) => !valueMissing({ value: username }, { length: 3 }) || "Username must be at least 3 characters",
           },
         }}
@@ -96,7 +96,7 @@ const AuthForm = () => {
         label="Email address"
         validation={{
           required: "Email Address is required",
-          validate: {
+          custom: {
             validEmail: (email) => !invalidEmail(email) || "Enter a valid email address",
             noSpaces: (email) => !email.includes(" ") || "Email cannot have spaces",
           },
@@ -110,7 +110,7 @@ const AuthForm = () => {
         label="Password"
         type="password"
         validation={{
-          validate: {
+          custom: {
             length8: (password) => !valueMissing({ value: password }, { length: 8 }) || "Password must be at least 8 characters",
             common: (password) => !commonPassword(password) || "Common password, use a better one",
           },

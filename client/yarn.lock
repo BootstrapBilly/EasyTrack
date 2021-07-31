@@ -3371,10 +3371,10 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
-"@billyjames/util-packages@^1.0.3":
-  "integrity" "sha512-vM1X2S82urBmY922STTPDOprMKNCvJBABBCG8X+LLjc2g8A2y8ZqT7+qpXFG7JgmCMexboE/oa09474XURkntQ=="
-  "resolved" "https://registry.npmjs.org/@billyjames/util-packages/-/util-packages-1.0.3.tgz"
-  "version" "1.0.3"
+"@billyjames/util-packages@^1.0.5":
+  "integrity" "sha512-Ff3cX7LleNYm3m5DJn6asOWboTlCD9STb2LL/djnxZLLmMuUlqIgFECDwU/vQt+OsvqgMzerZ4tBu4H10B5JqQ=="
+  "resolved" "https://registry.npmjs.org/@billyjames/util-packages/-/util-packages-1.0.5.tgz"
+  "version" "1.0.5"
   dependencies:
     "ava" "^3.15.0"
 
