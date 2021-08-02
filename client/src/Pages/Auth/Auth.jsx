@@ -17,7 +17,7 @@ const Auth = () => {
     }
   }, [authenticationStatus]);
 
-  return <div className="w-screen h-screen">{component}</div>;
+  return <div className="w-screen h-screen overflow-hidden">{component}</div>;
 };
 
 export default Auth;

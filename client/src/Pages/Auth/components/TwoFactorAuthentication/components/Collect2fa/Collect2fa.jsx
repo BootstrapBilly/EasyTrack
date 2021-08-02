@@ -35,7 +35,7 @@ const Collect2fa = ({handleNoThanks}) => {
                         label="Phone number"
                         type="number"
                         validation={{
-                            validate: {
+                            custom: {
                                 validUkNumber: (v) => !invalidPhoneNumber(v) || "Enter a valid phone number"
                             }
                         }}

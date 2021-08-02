@@ -2,7 +2,7 @@
 import { LOGIN_SUCCESS, REFRESH_SESSION, SET_BACKEND_ERRORS, SIGNUP_SUCCESS, SWITCH_AUTHENTICATION_STATUS } from "../actions"
 import { AuthenticationStatus } from "../../constants"
 
-const { LANDING, OFFER2FA, AUTHENTICATED, LOGIN } = AuthenticationStatus;
+const { LANDING, OFFER2FA, AUTHENTICATED, LOGIN, VERIFY2FA } = AuthenticationStatus;
 
 const initialState = {
     userId: null,
