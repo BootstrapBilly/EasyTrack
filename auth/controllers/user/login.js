@@ -1,6 +1,7 @@
 const { User } = require("../../models");
 const { userErrorResponse, serverErrorResponse, generateJWT, sanitize, attackDetectedResponse } = require("../../util");
 const bcrypt = require('bcrypt');
+const { generateRefreshJWT } = require("../../util/jwt");
 
 const login = async (req, res) => {
     const invalidDetails = "Email or password combination incorrect, try again";
@@ -22,6 +23,15 @@ const login = async (req, res) => {
         if(!passwordValid) return userErrorResponse(res, invalidDetails); // send generic error response so email address is not compromised
 
         const jwt = generateJWT(user._id);
+        const refresh = generateRefreshJWT(user._id);
+
+        res.cookie("jwt-refresh", refresh, {
+            httpOnly: true,
+        });
+
+        res.cookie("user-id", user._id, {
+            httpOnly: true,
+        });
 
         return res.status(200).json({ // send a success response
             success: true,

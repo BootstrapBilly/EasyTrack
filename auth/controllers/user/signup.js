@@ -3,6 +3,7 @@ const { checkRequiredValue, validateEmailAddress } = require("@billyjames/util-p
 const { userErrorResponse, serverErrorResponse, attackDetectedResponse, sanitize, generateJWT } = require("../../util");
 const commonPassword = require("common-password-checker");
 const bcrypt = require('bcrypt');
+const { generateRefreshJWT } = require("../../util/jwt");
 
 const signup = async (req, res) => {
     try {
@@ -43,6 +44,15 @@ const signup = async (req, res) => {
         })
 
         const jwt = generateJWT(user._id);
+        const refresh = generateRefreshJWT(user._id);
+
+        res.cookie("jwt-refresh", refresh, {
+            httpOnly: true,
+        });
+
+        res.cookie("user-id", user._id, {
+            httpOnly: true,
+        });
 
         return res.status(201).json({ // send a success response
             success: true,

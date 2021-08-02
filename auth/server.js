@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 const express = require("express");
 const mongoose = require("mongoose");
-const { signup, generate2facode, verify2facode, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
+const { signup, refreshToken, generate2facode, verify2facode, login, deleteUser, generateResetEmail, resetPassword } = require("./controllers");
 const env = require("dotenv");
+const cookieParser = require('cookie-parser')
 const helmet = require("helmet");
 const { verifyjwt } = require("./middleware");
 const cors = require('cors')
@@ -16,13 +17,16 @@ env.config();
 // middleware
 server.use(helmet());
 server.use(express.json());
+server.use(cookieParser());
 server.use(cors(
-  // { origin: "https://geteasytrack.web.app"}
+  // { origin: "https://geteasytrack.web.app", credentials: true}
+ { origin: "http://localhost:3000", credentials: true }
   ))
 
 // routes 
 server.use(router);
 
+router.get("/refresh_token", refreshToken)
 router.post("/signup", signup);
 router.post("/login", login);
 

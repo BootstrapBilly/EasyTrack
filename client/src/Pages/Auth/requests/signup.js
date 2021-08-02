@@ -8,6 +8,7 @@ const signup = async (data) => {
         headers: { "Content-Type": "application/json" },
         url: `${BACKEND_URL}/signup`,
         data,
+        withCredentials: true,
     });
 }
 

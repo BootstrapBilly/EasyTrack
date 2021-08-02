@@ -8,6 +8,7 @@ const login = async (data) => {
         headers: { "Content-Type": "application/json" },
         url: `${BACKEND_URL}/login`,
         data,
+        withCredentials: true,
     });
 }
 

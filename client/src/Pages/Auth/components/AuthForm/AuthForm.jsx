@@ -55,8 +55,9 @@ const AuthForm = () => {
   };
 
   return (
-    <Form onSubmit={onSubmit} className="p-5 sm:px-36 lg:px-72 2xl:px-96" customErrors={backendErrors}>
+    <Form onSubmit={onSubmit} className="p-5 w-full flex justify-center" customErrors={backendErrors}>
 
+    <div className="flex flex-col justify-center w-full md:w-2/3 lg:w-1/2 2xl:w-1/3">
       <button
         type="button"
         data-testid="auth-form__back-button"
@@ -121,12 +122,12 @@ const AuthForm = () => {
 
       <Form.Error className="px-2" />
 
-      <div className="mt-8 flex flex-col items-center w-full">
+      <div className="mt-4 flex flex-col items-center w-full">
         <Form.Submit
           text={authenticationStatus === SIGNUP ? "CREATE ACCOUNT" : "LOG IN"}
         />
       </div>
-
+      </div>
     </Form>
   );
 };
