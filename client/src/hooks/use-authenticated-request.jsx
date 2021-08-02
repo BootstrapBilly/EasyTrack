@@ -5,7 +5,6 @@ import { BACKEND_URL } from "../constants";
 const useAuthenticatedRequest = () => {
     const { jwt, userId } = useSelector((state) => state.auth);
 
-
     const sendRequest = async (url, data) => {
         return axios({
             method: 'post',

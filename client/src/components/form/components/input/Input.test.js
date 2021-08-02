@@ -76,4 +76,14 @@ describe("<Input/>", () => {
         await waitFor(() => expect(mockOnChange).toBeCalled());
     });
 
+    it("Displays an error when a banned character is supplied as user input", async () => {
+        renderComponent({canHaveNoFieldError: false});
+
+        const passwordInput = screen.getByTestId("input__password").querySelector('input');
+
+        act(() => { fireEvent.change(passwordInput, {target: { value: "{"}})});
+        
+        await waitFor(() => expect(screen.getByText('"{" is not allowed')).toBeInTheDocument());
+    });
+
 });
