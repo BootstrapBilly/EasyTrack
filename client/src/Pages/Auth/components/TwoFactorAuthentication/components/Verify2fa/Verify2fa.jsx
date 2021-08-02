@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { throttle } from 'lodash';
-import { useDispatch, useSelector } from 'react-redux';
-import { Form } from '../../../../../../components';
-import { setBackendErrors, switchAuthenticationStatus } from '../../../../../../store/actions';
+import { useDispatch } from 'react-redux';
+import { switchAuthenticationStatus } from '../../../../../../store/actions';
 import { Button } from "../../../../../../components";
 import { useAuthenticatedRequest } from '../../../../../../hooks';
 import VerificationInput from "react-verification-input";
+import { AuthenticationStatus } from "../../../../../../constants";
 
-const { AUTHENTICATED } = switchAuthenticationStatus;
+const { AUTHENTICATED } = AuthenticationStatus;
 
 const Verify2fa = ({handleNoThanks}) => {
     const [SMScode, setSMScode] = useState("");

@@ -33,6 +33,7 @@ export const signupSuccess = ({ id, jwt }) => {
 }
 
 export const switchAuthenticationStatus = ({ status }) => {
+    console.log(status)
     return async dispatch => dispatch({ type: SWITCH_AUTHENTICATION_STATUS, payload: { authenticationStatus: status } })
 }
 
