@@ -5,4 +5,13 @@
 
 body {
     font-family: 'Roboto Slab', serif;
+    height: 100vh;
+}
+
+html {
+    height: 100vh;
+}
+
+#root {
+    height: 100vh;
 }

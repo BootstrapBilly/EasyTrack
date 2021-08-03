@@ -1,4 +1,6 @@
 /* istanbul ignore file */
-export const NavigationStatus = {
-    DASHBOARD: "Dashboard",
+export const Routes = {
+    DASHBOARD: "dashboard",
+    WORKOUTS: "workouts",
+    MEALPLAN: "mealplan",
 }

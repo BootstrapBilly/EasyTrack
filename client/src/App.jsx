@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Auth, Dashboard } from "./Pages";
+import { Auth, Dashboard, Workouts } from "./Pages";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -49,12 +49,15 @@ const App = () => {
   if(!userId || authenticationStatus.includes("2FA")) return <Auth />
 
   return (
-    <div className="App">
+    <div className="flex flex-col h-full">
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route path="/">
+          <Route path={["/", "/dashboard"]}exact>
             <Dashboard />
+          </Route>
+          <Route path="/workouts">
+            <Workouts />
           </Route>
         </Switch>
       </BrowserRouter>

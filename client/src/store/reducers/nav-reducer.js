@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 import { CHANGE_NAVIGATION_STATUS } from "../actions/nav-actions";
-import { NavigationStatus } from "../../constants"
+import { Routes } from "../../constants"
 
-const { DASHBOARD } = NavigationStatus;
+const { DASHBOARD } = Routes;
 
 const initialState = {
     navigationStatus: DASHBOARD,
