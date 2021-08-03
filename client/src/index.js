@@ -7,10 +7,11 @@ import aws_exports from "./aws-exports";
 import { createStore, combineReducers, applyMiddleware } from "redux"
 import reduxThunk from "redux-thunk"
 import { Provider } from "react-redux"
-import { auth } from "./store/reducers";
+import { auth, nav } from "./store/reducers";
 
 const rootReducer = combineReducers({
   auth,
+  nav,
 });
 
 const store = createStore(rootReducer, applyMiddleware(reduxThunk));

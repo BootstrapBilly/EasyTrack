@@ -9,7 +9,8 @@ module.exports = {
         medium: "#808080",
       },
       red: "#f44336",
-      white: "#ffffff"
+      white: "#ffffff",
+      almostWhite: "#F9F7F5",
     },
     extend: {},
   },
