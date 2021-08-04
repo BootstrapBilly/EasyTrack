@@ -29,13 +29,15 @@ const login = async (req, res) => {
             httpOnly: true,
         });
 
-        res.cookie("user-id", user._id, {
+        const userData = { username: user.username, userId: user._id };
+        
+        res.cookie("user", userData, {
             httpOnly: true,
         });
 
         return res.status(200).json({ // send a success response
             success: true,
-            id: user._id, // with the user id
+            user: userData, // with the user id
             jwt,
         });
 

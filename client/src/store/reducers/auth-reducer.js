@@ -5,7 +5,7 @@ import { AuthenticationStatus } from "../../constants"
 const { LANDING, OFFER2FA, AUTHENTICATED } = AuthenticationStatus;
 
 const initialState = {
-    userId: null,
+    user: null,
     jwt: null,
     authenticationStatus: LANDING,
     backendErrors: [],

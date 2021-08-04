@@ -5,29 +5,29 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SWITCH_AUTHENTICATION_STATUS = "SWITCH_AUTHENTICATION_STATUS";
 export const SET_BACKEND_ERRORS = "SET_BACKEND_ERRORS";
 
-export const loginSuccess = ({ id, jwt }) => {
+export const loginSuccess = ({ user, jwt }) => {
     return async dispatch => {
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: { userId: id, jwt }
+            payload: { user, jwt }
         })
     }
 }
 
-export const refreshSession = ({ id, jwt }) => {
+export const refreshSession = ({ user, jwt }) => {
     return async dispatch => {
         dispatch({
             type: REFRESH_SESSION,
-            payload: { userId: id, jwt }
+            payload: { user, jwt }
         })
     }
 }
 
-export const signupSuccess = ({ id, jwt }) => {
+export const signupSuccess = ({ user, jwt }) => {
     return async dispatch => {
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: { userId: id, jwt }
+            payload: { user, jwt }
         })
     }
 }

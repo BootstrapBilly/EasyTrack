@@ -4,10 +4,10 @@ const { verifyRefreshJWT, generateJWT } = require("../../util/jwt");
 const refreshToken = async (req, res) => {
     try {
         const refreshToken = req.cookies["jwt-refresh"];
-        const userId = req.cookies["user-id"];
+        const user = req.cookies["user"];
         let newAccessToken;
 
-        if(!refreshToken || !userId){
+        if(!refreshToken || !user){
             return res.status(401).json({message: "Unauthenticated"})
         }
 
@@ -15,9 +15,11 @@ const refreshToken = async (req, res) => {
 
         if(!decodedToken) { return attackDetectedResponse(res); }
      
+        const { userId } = user;
+
         newAccessToken = generateJWT(userId);
 
-        return res.status(200).json({ success: true, jwt: newAccessToken, id: userId })
+        return res.status(200).json({ success: true, jwt: newAccessToken, user })
     }
     catch (error) { // if something fails in the try block
         console.log(error)

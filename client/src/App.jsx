@@ -19,7 +19,7 @@ library.add(faBars, faChevronLeft, faCog, faEye, faEyeSlash);
 
 const App = () => {
   const dispatch = useDispatch();
-  const { userId, authenticationStatus } = useSelector((state) => state.auth);
+  const { user, authenticationStatus } = useSelector((state) => state.auth);
 
   const checkAccessToken = async () => {
       try{
@@ -46,7 +46,7 @@ const App = () => {
     checkAccessToken();
   }, [240000])
 
-  if(!userId || authenticationStatus.includes("2FA")) return <Auth />
+  if(!user || authenticationStatus.includes("2FA")) return <Auth />
 
   return (
     <div className="flex flex-col h-full">
