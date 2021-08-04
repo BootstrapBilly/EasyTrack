@@ -29,7 +29,7 @@ const login = async (req, res) => {
             httpOnly: true,
         });
 
-        const userData = { username: user.username, userId: user._id };
+        const userData = { username: user.username, userId: user._id, email: user.email };
         
         res.cookie("user", userData, {
             httpOnly: true,

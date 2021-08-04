@@ -46,7 +46,7 @@ const signup = async (req, res) => {
         const jwt = generateJWT(user._id);
         const refresh = generateRefreshJWT(user._id);
 
-        const userData = { username: user.username, userId: user._id };
+        const userData = { username: user.username, userId: user._id, email: user.email };
 
         res.cookie("jwt-refresh", refresh, {
             httpOnly: true,
