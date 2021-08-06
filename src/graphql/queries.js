@@ -193,6 +193,7 @@ export const getWorkout = /* GraphQL */ `
   query GetWorkout($id: ID!) {
     getWorkout(id: $id) {
       id
+      name
       date
       exercises {
         name
@@ -234,6 +235,7 @@ export const listWorkouts = /* GraphQL */ `
     listWorkouts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
         date
         exercises {
           name
@@ -249,7 +251,6 @@ export const listWorkouts = /* GraphQL */ `
         createdBy
         createdAt
         updatedAt
-        name
       }
       nextToken
     }

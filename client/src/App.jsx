@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Auth, Dashboard, Workouts } from "./Pages";
+import { Auth, Dashboard, WorkoutsRoot } from "./Pages";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -8,6 +8,7 @@ import {
   faCog,
   faEye,
   faEyeSlash,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -15,7 +16,7 @@ import { BACKEND_URL } from "./constants";
 import { refreshSession } from "./store/actions";
 import { Header } from "./components";
 
-library.add(faBars, faChevronLeft, faCog, faEye, faEyeSlash);
+library.add(faBars, faChevronLeft, faCog, faEye, faEyeSlash, faPlus);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const App = () => {
             <Dashboard />
           </Route>
           <Route path="/workouts">
-            <Workouts />
+            <WorkoutsRoot />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -1,1 +1,1 @@
-export { default as Workouts } from "./Workouts";
+export { default as WorkoutsRoot } from "./WorkoutsRoot";

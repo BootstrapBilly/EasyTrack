@@ -29,6 +29,7 @@ type Food @model {
 # training abstract
 type Workout @model {
   id: ID!
+  name: String!
   date: String!
   exercises: [Exercise]
   performanceHistory: [ExercisePerformance]
