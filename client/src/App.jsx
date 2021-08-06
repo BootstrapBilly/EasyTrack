@@ -5,6 +5,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBars,
   faChevronLeft,
+  faChevronRight,
   faCog,
   faEye,
   faEyeSlash,
@@ -16,7 +17,7 @@ import { BACKEND_URL } from "./constants";
 import { refreshSession } from "./store/actions";
 import { Header } from "./components";
 
-library.add(faBars, faChevronLeft, faCog, faEye, faEyeSlash, faPlus);
+library.add(faBars, faChevronLeft, faChevronRight, faCog, faEye, faEyeSlash, faPlus);
 
 const App = () => {
   const dispatch = useDispatch();

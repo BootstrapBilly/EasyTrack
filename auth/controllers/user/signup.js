@@ -50,10 +50,16 @@ const signup = async (req, res) => {
 
         res.cookie("jwt-refresh", refresh, {
             httpOnly: true,
+            sameSite: 'none', 
+            secure: true,
+            maxAge: 604800000,
         });
 
         res.cookie("user", userData , {
             httpOnly: true,
+            sameSite: 'none', 
+            secure: true,
+            maxAge: 604800000,
         });
 
         return res.status(201).json({ // send a success response

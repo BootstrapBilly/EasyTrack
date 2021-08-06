@@ -1,11 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useMemo } from 'react';
 import { useLocation } from "react-router-dom";
+import { useNavigate } from '../../hooks';
 
-const WizardNav = ({root, options}) => {
+const WizardNav = ({root: { route, displayText }, options}) => {
     const { pathname } = useLocation();
+    const { navigateTo } = useNavigate();
 
-    const currentPath = useMemo(() => {
-
+    const currentSubPath = useMemo(() => {
         let result = null;
 
         Object.entries(options).forEach((option) => {
@@ -17,13 +19,26 @@ const WizardNav = ({root, options}) => {
         })
 
         return result;
-
     }, [options, pathname])
 
+    const handleNavigate = (route) => {
+        navigateTo({location: route})
+    }
+
     return (
-        <div className="flex">
-            <div>{root}</div>
-            <div>{currentPath}</div>
+        <div className={`flex px-4 text-lg items-center cursor-pointer`}>
+            <div className={`${currentSubPath ? "text-grey-medium" : "font-bold"}`} onClick={() => handleNavigate(route)}>{displayText}</div>
+            {currentSubPath &&             
+            <div className="px-1">
+                <FontAwesomeIcon
+                        data-testid="header__settings-cog"
+                        onClick={() => {}}
+                        icon="chevron-right"
+                        className="text-grey-medium"
+                        size="sm"
+                />
+            </div>}
+            <div className="font-bold">{currentSubPath}</div>
         </div>
     )
 }
