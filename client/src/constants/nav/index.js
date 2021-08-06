@@ -5,7 +5,7 @@ export const Routes = {
     MEALPLAN: "mealplan",
 }
 
-export const WorkoutsRoots = {
+export const WorkoutsRoutes = {
     WORKOUTS: "workouts",
     ADD_WORKOUT: "workouts/add",
 }

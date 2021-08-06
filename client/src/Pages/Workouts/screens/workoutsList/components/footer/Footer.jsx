@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 
-const Footer = () => {
+const Footer = ({ onClick }) => {
     return (
-        <div className="py-1">
+        <div className="py-1" onClick={onClick}>
             <div className="flex flex-col w-full items-center justify-center">
                 <div className="cursor-pointer flex flex-col items-center justify-center">
                     <FontAwesomeIcon
