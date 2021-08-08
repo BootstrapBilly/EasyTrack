@@ -11,7 +11,6 @@ const wizardOptions = [
 ]
 
 const App = () => {
-
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <BrowserRouter>
@@ -20,7 +19,7 @@ const App = () => {
           <Route path={`/${WORKOUTS}`} exact>
             <WorkoutsList />
           </Route>
-          <Route path={`/${ADD_WORKOUT}`}  exact>
+          <Route path={`/${ADD_WORKOUT}`} exact>
             Add
           </Route>
         </Switch>

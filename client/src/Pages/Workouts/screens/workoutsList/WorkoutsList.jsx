@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Footer, List } from './components';
+import { List } from './components';
 import { listWorkouts } from "../../../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { useSelector } from 'react-redux';
+import { Button } from '../../../../components';
 import { useNavigate } from '../../../../hooks';
 import { WorkoutsRoutes } from "../../../../constants";
 
 const { ADD_WORKOUT } = WorkoutsRoutes;
 
 const Workouts = () => {
+    const { navigateTo } = useNavigate();  
     const { user: { userId } } = useSelector(state => state.auth);
-    const { navigateTo } = useNavigate();
 
     const [workouts, setWorkouts] = useState([]);
 
@@ -29,8 +30,10 @@ const Workouts = () => {
 
     return (
         <div className="flex flex-col h-full overflow-hidden">
+            <div className="flex justify-end pb-4 pr-4">                   
+                <div className="w-32"><Button variant="success" size="md" onClick={openAddNewForm}>Add New</Button></div>
+            </div>
             <List workouts={workouts} />
-            <Footer onClick={openAddNewForm}/>
         </div>
     )
 }

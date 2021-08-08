@@ -17,9 +17,9 @@ const Button = ({children, className, size, style, variant, onClick}) => {
         switch(size){
             default: case "lg": return "h-12";
             case "sm": return "h-6";
-            case "md": return "h-10";
+            case "md": return "h-8";
         }
-    }, [variant]);
+    }, [size]);
 
     return (
         <div className={`${className} w-full`}>
