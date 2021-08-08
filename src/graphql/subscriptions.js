@@ -308,14 +308,20 @@ export const onCreateWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -345,14 +351,20 @@ export const onUpdateWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -382,14 +394,20 @@ export const onDeleteWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -459,8 +477,11 @@ export const onCreateExercisePerformance = /* GraphQL */ `
     onCreateExercisePerformance {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -484,8 +505,11 @@ export const onUpdateExercisePerformance = /* GraphQL */ `
     onUpdateExercisePerformance {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -509,8 +533,11 @@ export const onDeleteExercisePerformance = /* GraphQL */ `
     onDeleteExercisePerformance {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -523,6 +550,75 @@ export const onDeleteExercisePerformance = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateExercise = /* GraphQL */ `
+  subscription OnCreateExercise {
+    onCreateExercise {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateExercise = /* GraphQL */ `
+  subscription OnUpdateExercise {
+    onUpdateExercise {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteExercise = /* GraphQL */ `
+  subscription OnDeleteExercise {
+    onDeleteExercise {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCustomExercise = /* GraphQL */ `
+  subscription OnCreateCustomExercise {
+    onCreateCustomExercise {
+      id
+      name
+      muscle
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCustomExercise = /* GraphQL */ `
+  subscription OnUpdateCustomExercise {
+    onUpdateCustomExercise {
+      id
+      name
+      muscle
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCustomExercise = /* GraphQL */ `
+  subscription OnDeleteCustomExercise {
+    onDeleteCustomExercise {
+      id
+      name
+      muscle
       createdBy
       createdAt
       updatedAt

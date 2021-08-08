@@ -338,14 +338,20 @@ export const createWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -378,14 +384,20 @@ export const updateWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -418,14 +430,20 @@ export const deleteWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -507,8 +525,11 @@ export const createExercisePerformance = /* GraphQL */ `
     createExercisePerformance(input: $input, condition: $condition) {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -535,8 +556,11 @@ export const updateExercisePerformance = /* GraphQL */ `
     updateExercisePerformance(input: $input, condition: $condition) {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -563,8 +587,11 @@ export const deleteExercisePerformance = /* GraphQL */ `
     deleteExercisePerformance(input: $input, condition: $condition) {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -577,6 +604,93 @@ export const deleteExercisePerformance = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createExercise = /* GraphQL */ `
+  mutation CreateExercise(
+    $input: CreateExerciseInput!
+    $condition: ModelExerciseConditionInput
+  ) {
+    createExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateExercise = /* GraphQL */ `
+  mutation UpdateExercise(
+    $input: UpdateExerciseInput!
+    $condition: ModelExerciseConditionInput
+  ) {
+    updateExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteExercise = /* GraphQL */ `
+  mutation DeleteExercise(
+    $input: DeleteExerciseInput!
+    $condition: ModelExerciseConditionInput
+  ) {
+    deleteExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCustomExercise = /* GraphQL */ `
+  mutation CreateCustomExercise(
+    $input: CreateCustomExerciseInput!
+    $condition: ModelCustomExerciseConditionInput
+  ) {
+    createCustomExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCustomExercise = /* GraphQL */ `
+  mutation UpdateCustomExercise(
+    $input: UpdateCustomExerciseInput!
+    $condition: ModelCustomExerciseConditionInput
+  ) {
+    updateCustomExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCustomExercise = /* GraphQL */ `
+  mutation DeleteCustomExercise(
+    $input: DeleteCustomExerciseInput!
+    $condition: ModelCustomExerciseConditionInput
+  ) {
+    deleteCustomExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
       createdBy
       createdAt
       updatedAt

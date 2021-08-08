@@ -30,7 +30,7 @@ type Food @model {
 type Workout @model {
   id: ID!
   name: String!
-  date: String!
+  date: String
   exercises: [Exercise]
   performanceHistory: [ExercisePerformance]
   createdBy: ID!
@@ -53,6 +53,17 @@ type ExercisePerformance @model {
   createdBy: ID!
 }
 
+type Exercise @model {
+  name: String!
+  muscle: MuscleEnum!
+}
+
+type CustomExercise @model {
+  name: String!
+  muscle: MuscleEnum!
+  createdBy: ID!
+}
+
 # nutrition concrete
 type TargetActual {
   target: Int!
@@ -69,12 +80,6 @@ type MacroTarget {
   protein: TargetActual!
   carbs: TargetActual!
   fats: TargetActual!
-}
-
-# training concrete
-type Exercise {
-  name: String!
-  muscle: MuscleEnum!
 }
 
 # nutrition enums

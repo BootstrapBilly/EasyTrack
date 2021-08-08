@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { WizardNav } from "../../components";
-import { WorkoutsList } from "./screens";
+import { AddWorkout, WorkoutsList } from "./screens";
 import { WorkoutsRoutes } from "../../constants";
 
 const { WORKOUTS, ADD_WORKOUT } = WorkoutsRoutes;
@@ -20,7 +20,7 @@ const App = () => {
             <WorkoutsList />
           </Route>
           <Route path={`/${ADD_WORKOUT}`} exact>
-            Add
+            <AddWorkout />
           </Route>
         </Switch>
       </BrowserRouter>

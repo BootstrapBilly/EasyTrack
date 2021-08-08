@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { Error, Input, Submit, Switcher } from "./components";
+import { Error, ExerciseAdder, Input, Submit, Switcher } from "./components";
 
 const Form = ({ children, onSubmit, className, customErrors }) => {
   const methods = useForm({ mode: "onChange" });
@@ -27,6 +27,7 @@ const Form = ({ children, onSubmit, className, customErrors }) => {
 };
 
 Form.Error = Error;
+Form.ExerciseAdder = ExerciseAdder;
 Form.Input = Input;
 Form.Submit = Submit;
 Form.Switcher = Switcher;

@@ -196,14 +196,20 @@ export const getWorkout = /* GraphQL */ `
       name
       date
       exercises {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       performanceHistory {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -238,8 +244,11 @@ export const listWorkouts = /* GraphQL */ `
         name
         date
         exercises {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         performanceHistory {
           id
@@ -296,8 +305,11 @@ export const getExercisePerformance = /* GraphQL */ `
     getExercisePerformance(id: $id) {
       id
       exercise {
+        id
         name
         muscle
+        createdAt
+        updatedAt
       }
       numSets
       performance {
@@ -330,8 +342,11 @@ export const listExercisePerformances = /* GraphQL */ `
       items {
         id
         exercise {
+          id
           name
           muscle
+          createdAt
+          updatedAt
         }
         numSets
         performance {
@@ -344,6 +359,66 @@ export const listExercisePerformances = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        createdBy
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getExercise = /* GraphQL */ `
+  query GetExercise($id: ID!) {
+    getExercise(id: $id) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listExercises = /* GraphQL */ `
+  query ListExercises(
+    $filter: ModelExerciseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listExercises(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        muscle
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCustomExercise = /* GraphQL */ `
+  query GetCustomExercise($id: ID!) {
+    getCustomExercise(id: $id) {
+      id
+      name
+      muscle
+      createdBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCustomExercises = /* GraphQL */ `
+  query ListCustomExercises(
+    $filter: ModelCustomExerciseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCustomExercises(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        muscle
         createdBy
         createdAt
         updatedAt

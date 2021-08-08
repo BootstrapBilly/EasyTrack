@@ -315,6 +315,73 @@ export const getExercisePerformance = /* GraphQL */ `
     }
   }
 `;
+export const listExercisesByMuscle = /* GraphQL */ `
+  query ListExercisesByMuscle {
+  CHEST: listExercises(filter: {muscle: {eq: CHEST}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    BACK: listExercises(filter: {muscle: {eq: BACK}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    SHOULDERS: listExercises(filter: {muscle: {eq: SHOULDERS}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    BICEPS: listExercises(filter: {muscle: {eq: BICEPS}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    TRICEPS: listExercises(filter: {muscle: {eq: TRICEPS}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    GLUTES: listExercises(filter: {muscle: {eq: GLUTES}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    HAMSTRINGS: listExercises(filter: {muscle: {eq: HAMSTRINGS}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    CALFS: listExercises(filter: {muscle: {eq: CALFS}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+    COMPOUND: listExercises(filter: {muscle: {eq: COMPOUND}}) {
+    items {
+      muscle
+      name
+      id
+    }
+  }
+}`;
+
 export const listExercisePerformances = /* GraphQL */ `
   query ListExercisePerformances(
     $filter: ModelExercisePerformanceFilterInput
