@@ -3,8 +3,9 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listExercisesByMuscle } from '../../../../graphql/queries';
 import { startCase } from 'lodash';
 import { Exercise } from '../../../exercise';
+import { Button } from '../../../button';
 
-const ExerciseAdder = () => {
+const ExerciseAdder = ({ onClick, buttonText }) => {
     const [availableExercises, setAvailableExercises] = useState([])
     const [selectedExercises, setSelectedExercises] = useState([]);
 
@@ -34,8 +35,7 @@ const ExerciseAdder = () => {
 
     return (
         <div>
-           <div className="my-2">Select some exercises</div>
-           <div className="flex flex-col border border-grey-light p-1 shadow max-h-96 overflow-y-auto">
+           <div className="flex flex-col border border-grey-light p-1 shadow overflow-y-auto max-h-96">
                {[["SELECTED", { items: selectedExercises }], ...availableExercises].map((exercise) => {
                const [title, exercises] = exercise;
                const { items } = exercises;
@@ -50,7 +50,7 @@ const ExerciseAdder = () => {
                             <div className={`font-bold text-xl`}>
                                 {startCase(title.toLowerCase())}:
                             </div>
-                            <div className="grid grid-cols-2 gap-1 place-content-start place-items-center">
+                            <div className="grid grid-cols-3 gap-1 place-content-start place-items-center">
                                 {filteredItems.map((exercise) =>                                                 
                                     <Exercise 
                                         key={exercise.id} 
@@ -65,6 +65,7 @@ const ExerciseAdder = () => {
                 }
            })}
            </div>
+           <Button variant="brand" className="mt-4" onClick={() => onClick(selectedExercises)}>{buttonText}</Button>
         </div>
     )
 }

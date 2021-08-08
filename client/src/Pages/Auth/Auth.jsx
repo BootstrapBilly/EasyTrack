@@ -12,7 +12,7 @@ const Auth = () => {
     switch (authenticationStatus) {
       default: case LANDING: return <Landing />;
 
-      case LOGIN: case SIGNUP: return <AuthForm />
+      case LOGIN: case SIGNUP: return <AuthForm />;
       case OFFER2FA: case COLLECT2FAPHONENUMBER: case VERIFY2FA: return <TwoFactorAuthentication />;
     }
   }, [authenticationStatus]);

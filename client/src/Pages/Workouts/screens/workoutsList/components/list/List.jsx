@@ -13,18 +13,7 @@ const List = ({ workouts }) => {
             {workouts.map(({name, exercises}) => <Portal name={name} className="mt-4" 
             // component={<Thumbnail exercises={exercises} />} 
             onClick={() => {}} />)}
-
-            {workouts.map(({name, exercises}) => <Portal name={name} className="mt-4" 
-            // component={<Thumbnail exercises={exercises} />} 
-            onClick={() => {}} />)}
-
-            {workouts.map(({name, exercises}) => <Portal name={name} className="mt-4" 
-            // component={<Thumbnail exercises={exercises} />} 
-            onClick={() => {}} />)}
-
-            {workouts.map(({name, exercises}) => <Portal name={name} className="mt-4" 
-            // component={<Thumbnail exercises={exercises} />} 
-            onClick={() => {}} />)}
+            
         </div>
     )
 }
