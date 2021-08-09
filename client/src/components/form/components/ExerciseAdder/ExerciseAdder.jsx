@@ -5,7 +5,7 @@ import { startCase } from 'lodash';
 import { Exercise } from '../../../exercise';
 import { Button } from '../../../button';
 
-const ExerciseAdder = ({ onClick, buttonText }) => {
+const ExerciseAdder = ({ onClick, buttonText, buttonWrapperClassName, exerciseContainerClassName }) => {
     const [availableExercises, setAvailableExercises] = useState([])
     const [selectedExercises, setSelectedExercises] = useState([]);
 
@@ -34,8 +34,8 @@ const ExerciseAdder = ({ onClick, buttonText }) => {
     useEffect(() => { getAvailableExcercises()}, [])
 
     return (
-        <div>
-           <div className="flex flex-col border border-grey-light p-1 shadow overflow-y-auto max-h-96">
+        <div className="h-full">
+           <div className={`flex flex-col border border-grey-light p-2 shadow overflow-y-auto h-70% ${exerciseContainerClassName}`}>
                {[["SELECTED", { items: selectedExercises }], ...availableExercises].map((exercise) => {
                const [title, exercises] = exercise;
                const { items } = exercises;
@@ -47,17 +47,17 @@ const ExerciseAdder = ({ onClick, buttonText }) => {
                 if(filteredItems.length){
                     return(
                         <div className="pb-1">
-                            <div className={`font-bold text-xl`}>
+                            <div className={`font-bold text-xl mb-2`}>
                                 {startCase(title.toLowerCase())}:
                             </div>
-                            <div className="grid grid-cols-3 gap-1 place-content-start place-items-center">
+                            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-16 gap-1 place-content-start place-items-center">
                                 {filteredItems.map((exercise) =>                                                 
                                     <Exercise 
                                         key={exercise.id} 
                                         name={exercise.name} 
                                         muscle={title} 
                                         onClick={() => handleClickExercise(exercise)}
-                                        backgroundColor={isSelected && "#50C878"}
+                                        backgroundColor={isSelected && "#ACD1AF"}
                                     />
                                 )}
                             </div>
@@ -65,7 +65,9 @@ const ExerciseAdder = ({ onClick, buttonText }) => {
                 }
            })}
            </div>
-           <Button variant="brand" className="mt-4" onClick={() => onClick(selectedExercises)}>{buttonText}</Button>
+           <div className={`${buttonWrapperClassName}`}>
+                <Button variant="brand" onClick={() => onClick(selectedExercises)}>{buttonText}</Button>
+           </div>
         </div>
     )
 }

@@ -10,7 +10,7 @@ const List = ({ workouts }) => {
 
             {noWorkouts &&  <NoData message="You have no workouts yet." hint="You can add one with the button at the top." />}
 
-            {workouts.map(({name, exercises}) => <Portal name={name} className="mt-4" 
+            {workouts.map(({name, exercises}) => <Portal name={name} className="mb-6" 
             // component={<Thumbnail exercises={exercises} />} 
             onClick={() => {}} />)}
             

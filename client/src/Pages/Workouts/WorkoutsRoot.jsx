@@ -7,7 +7,6 @@ const { WORKOUTS, ADD_WORKOUT } = WorkoutsRoutes;
 
 const wizardOptions = [
   { route: ADD_WORKOUT, displayText: "Add workout" },
-  { route: "naaa", displayText: "YEEEE" },
 ]
 
 const App = () => {
@@ -18,6 +17,9 @@ const App = () => {
         <Switch>
           <Route path={`/${WORKOUTS}`} exact>
             <WorkoutsList />
+          </Route>
+          <Route path={`/${ADD_WORKOUT}`} exact>
+            <AddWorkout />
           </Route>
           <Route path={`/${ADD_WORKOUT}`} exact>
             <AddWorkout />
