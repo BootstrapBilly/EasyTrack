@@ -1,4 +1,5 @@
 /* eslint-disable */
+/* istanbul ignore file */
 // this is an auto generated file. This will be overwritten
 
 export const onCreateDay = /* GraphQL */ `

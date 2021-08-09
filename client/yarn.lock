@@ -10075,6 +10075,11 @@
     "micromatch" "^4.0.2"
     "pretty-format" "^26.6.2"
 
+"jest-cra-svg-transform@^1.0.2":
+  "integrity" "sha512-Ua9zreUtW+zwsKYm6kgRTuHcIe0+cxYJ5eBZf3wa8VgjPzFL8+CqaqoDonxyOd5Sjen61Jl/2m20z5kyfjQuvQ=="
+  "resolved" "https://registry.npmjs.org/jest-cra-svg-transform/-/jest-cra-svg-transform-1.0.2.tgz"
+  "version" "1.0.2"
+
 "jest-diff@^26.0.0", "jest-diff@^26.6.2":
   "integrity" "sha512-6m+9Z3Gv9wN0WFVasqjCL/06+EFCMTqDEUl/b87HYK2rAPTyfz4ZIuSlPhY51PIQRWx5TaxeF1qmXKe9gfN3sA=="
   "resolved" "https://registry.npmjs.org/jest-diff/-/jest-diff-26.6.2.tgz"

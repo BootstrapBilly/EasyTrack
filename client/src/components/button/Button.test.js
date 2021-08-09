@@ -74,7 +74,7 @@ describe("<Button/>", () => {
     it("Applies the md sizing correctly", async () => {
         renderComponent({size: "md"});
 
-        await waitFor(() => expect(screen.getByTestId("button")).toHaveClass("h-10"));
+        await waitFor(() => expect(screen.getByTestId("button")).toHaveClass("MuiButtonBase-root MuiButton-root MuiButton-contained h-8 shadow MuiButton-fullWidth"));
     });
 
     it("Applies the sm sizing correctly", async () => {
