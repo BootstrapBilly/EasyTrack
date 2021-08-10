@@ -18,8 +18,8 @@ const App = () => {
           <Route path={`/${WORKOUTS}`} exact>
             <WorkoutsList />
           </Route>
-          <Route path={`/${ADD_WORKOUT}`} exact>
-            <AddWorkout />
+          <Route path={`/${WORKOUTS}/:id`} exact>
+            <div>Shneebly</div>
           </Route>
           <Route path={`/${ADD_WORKOUT}`} exact>
             <AddWorkout />

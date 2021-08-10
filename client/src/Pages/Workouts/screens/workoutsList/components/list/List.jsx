@@ -1,8 +1,12 @@
 import React, { useMemo } from 'react'
-import { NoData, Portal } from "../../../../../../components";
+import { ExerciseIconPillCollection, NoData, Portal } from "../../../../../../components";
+import { useNavigate } from '../../../../../../hooks';
+import { Routes } from '../../../../../../constants';
+
+const { WORKOUTS } = Routes;
 
 const List = ({ workouts }) => {
-
+    const { navigateTo } = useNavigate();
     const noWorkouts = useMemo(() => !workouts?.length, [workouts])
 
     return (
@@ -10,9 +14,14 @@ const List = ({ workouts }) => {
 
             {noWorkouts &&  <NoData message="You have no workouts yet." hint="You can add one with the button at the top." />}
 
-            {workouts.map(({name, exercises}) => <Portal name={name} className="mb-6" 
-            // component={<Thumbnail exercises={exercises} />} 
-            onClick={() => {}} />)}
+            {workouts.map(({id, name, exercises}) => 
+                <Portal 
+                    name={name} 
+                    className="mb-6" 
+                    component={<ExerciseIconPillCollection exercises={exercises}/>} 
+                    onClick={() => { navigateTo({location: `${WORKOUTS}/${id}`})}} 
+                />)
+            }
             
         </div>
     )
