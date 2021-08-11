@@ -1,5 +1,4 @@
 /* eslint-disable */
-/* istanbul ignore file */
 // this is an auto generated file. This will be overwritten
 
 export const onCreateDay = /* GraphQL */ `
@@ -306,31 +305,11 @@ export const onCreateWorkout = /* GraphQL */ `
   subscription OnCreateWorkout {
     onCreateWorkout {
       id
-      date
+      name
       exercises {
+        id
         name
         muscle
-      }
-      performanceHistory {
-        id
-        exercise {
-          name
-          muscle
-        }
-        numSets
-        performance {
-          id
-          weightType
-          weight
-          reps
-          effort
-          createdBy
-          createdAt
-          updatedAt
-        }
-        createdBy
-        createdAt
-        updatedAt
       }
       createdBy
       createdAt
@@ -342,31 +321,11 @@ export const onUpdateWorkout = /* GraphQL */ `
   subscription OnUpdateWorkout {
     onUpdateWorkout {
       id
-      date
+      name
       exercises {
+        id
         name
         muscle
-      }
-      performanceHistory {
-        id
-        exercise {
-          name
-          muscle
-        }
-        numSets
-        performance {
-          id
-          weightType
-          weight
-          reps
-          effort
-          createdBy
-          createdAt
-          updatedAt
-        }
-        createdBy
-        createdAt
-        updatedAt
       }
       createdBy
       createdAt
@@ -378,31 +337,11 @@ export const onDeleteWorkout = /* GraphQL */ `
   subscription OnDeleteWorkout {
     onDeleteWorkout {
       id
-      date
+      name
       exercises {
+        id
         name
         muscle
-      }
-      performanceHistory {
-        id
-        exercise {
-          name
-          muscle
-        }
-        numSets
-        performance {
-          id
-          weightType
-          weight
-          reps
-          effort
-          createdBy
-          createdAt
-          updatedAt
-        }
-        createdBy
-        createdAt
-        updatedAt
       }
       createdBy
       createdAt
@@ -414,11 +353,8 @@ export const onCreateSet = /* GraphQL */ `
   subscription OnCreateSet {
     onCreateSet {
       id
-      weightType
       weight
       reps
-      effort
-      createdBy
       createdAt
       updatedAt
     }
@@ -428,11 +364,8 @@ export const onUpdateSet = /* GraphQL */ `
   subscription OnUpdateSet {
     onUpdateSet {
       id
-      weightType
       weight
       reps
-      effort
-      createdBy
       createdAt
       updatedAt
     }
@@ -442,86 +375,62 @@ export const onDeleteSet = /* GraphQL */ `
   subscription OnDeleteSet {
     onDeleteSet {
       id
-      weightType
       weight
       reps
-      effort
-      createdBy
       createdAt
       updatedAt
     }
   }
 `;
-export const onCreateExercisePerformance = /* GraphQL */ `
-  subscription OnCreateExercisePerformance {
-    onCreateExercisePerformance {
+export const onCreateSession = /* GraphQL */ `
+  subscription OnCreateSession {
+    onCreateSession {
+      createdBy
+      exerciseId
       id
-      exercise {
-        name
-        muscle
-      }
-      numSets
-      performance {
+      sets {
         id
-        weightType
         weight
         reps
-        effort
-        createdBy
         createdAt
         updatedAt
       }
-      createdBy
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateExercisePerformance = /* GraphQL */ `
-  subscription OnUpdateExercisePerformance {
-    onUpdateExercisePerformance {
+export const onUpdateSession = /* GraphQL */ `
+  subscription OnUpdateSession {
+    onUpdateSession {
+      createdBy
+      exerciseId
       id
-      exercise {
-        name
-        muscle
-      }
-      numSets
-      performance {
+      sets {
         id
-        weightType
         weight
         reps
-        effort
-        createdBy
         createdAt
         updatedAt
       }
-      createdBy
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteExercisePerformance = /* GraphQL */ `
-  subscription OnDeleteExercisePerformance {
-    onDeleteExercisePerformance {
+export const onDeleteSession = /* GraphQL */ `
+  subscription OnDeleteSession {
+    onDeleteSession {
+      createdBy
+      exerciseId
       id
-      exercise {
-        name
-        muscle
-      }
-      numSets
-      performance {
+      sets {
         id
-        weightType
         weight
         reps
-        effort
-        createdBy
         createdAt
         updatedAt
       }
-      createdBy
       createdAt
       updatedAt
     }

@@ -16,8 +16,12 @@ const Workouts = () => {
     const [workouts, setWorkouts] = useState([]);
 
     const getWorkouts = async () => {
-        const { data: { listWorkouts: { items } } } = await API.graphql(graphqlOperation(listWorkouts, { filter: { createdBy: { eq: userId } } }));
-        setWorkouts(items);
+        try {
+            const { data: { listWorkouts: { items } } } = await API.graphql(graphqlOperation(listWorkouts, { filter: { createdBy: { eq: userId } } }));
+            setWorkouts(items);
+        } catch(e) {
+            console.log(e);
+        }
     }
     
     const openAddNewForm = () => {

@@ -340,6 +340,8 @@ export const createWorkout = /* GraphQL */ `
         id
         name
         muscle
+        createdAt
+        updatedAt
       }
       createdBy
       createdAt
@@ -359,6 +361,8 @@ export const updateWorkout = /* GraphQL */ `
         id
         name
         muscle
+        createdAt
+        updatedAt
       }
       createdBy
       createdAt
@@ -378,6 +382,8 @@ export const deleteWorkout = /* GraphQL */ `
         id
         name
         muscle
+        createdAt
+        updatedAt
       }
       createdBy
       createdAt
@@ -485,6 +491,48 @@ export const deleteSession = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createExercise = /* GraphQL */ `
+  mutation CreateExercise(
+    $input: CreateExerciseInput!
+    $condition: ModelExerciseConditionInput
+  ) {
+    createExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateExercise = /* GraphQL */ `
+  mutation UpdateExercise(
+    $input: UpdateExerciseInput!
+    $condition: ModelExerciseConditionInput
+  ) {
+    updateExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteExercise = /* GraphQL */ `
+  mutation DeleteExercise(
+    $input: DeleteExerciseInput!
+    $condition: ModelExerciseConditionInput
+  ) {
+    deleteExercise(input: $input, condition: $condition) {
+      id
+      name
+      muscle
       createdAt
       updatedAt
     }

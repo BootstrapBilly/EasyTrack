@@ -189,83 +189,23 @@ export const listFoods = /* GraphQL */ `
     }
   }
 `;
-export const listExercisesByMuscle = /* GraphQL */ `
-  query ListExercisesByMuscle {
-  CHEST: listExercises(filter: {muscle: {eq: CHEST}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    BACK: listExercises(filter: {muscle: {eq: BACK}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    SHOULDERS: listExercises(filter: {muscle: {eq: SHOULDERS}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    BICEPS: listExercises(filter: {muscle: {eq: BICEPS}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    TRICEPS: listExercises(filter: {muscle: {eq: TRICEPS}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    GLUTES: listExercises(filter: {muscle: {eq: GLUTES}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    HAMSTRINGS: listExercises(filter: {muscle: {eq: HAMSTRINGS}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    CALFS: listExercises(filter: {muscle: {eq: CALFS}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-    COMPOUND: listExercises(filter: {muscle: {eq: COMPOUND}}) {
-    items {
-      muscle
-      name
-      id
-    }
-  }
-}`;
 export const getWorkout = /* GraphQL */ `
-query GetWorkout($id: ID!) {
-  workout:getWorkout(id: $id) {
-    id
-    exercises {
+  query GetWorkout($id: ID!) {
+    getWorkout(id: $id) {
       id
       name
-      muscle
+      exercises {
+        id
+        name
+        muscle
+        createdAt
+        updatedAt
+      }
+      createdBy
+      createdAt
+      updatedAt
     }
   }
-}
 `;
 export const listWorkouts = /* GraphQL */ `
   query ListWorkouts(
@@ -281,6 +221,8 @@ export const listWorkouts = /* GraphQL */ `
           id
           name
           muscle
+          createdAt
+          updatedAt
         }
         createdBy
         createdAt
@@ -343,13 +285,51 @@ export const listSessions = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    sessions: listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        createdBy
+        exerciseId
+        id
         sets {
+          id
           weight
           reps
+          createdAt
+          updatedAt
         }
+        createdAt
+        updatedAt
       }
+      nextToken
+    }
+  }
+`;
+export const getExercise = /* GraphQL */ `
+  query GetExercise($id: ID!) {
+    getExercise(id: $id) {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listExercises = /* GraphQL */ `
+  query ListExercises(
+    $filter: ModelExerciseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listExercises(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        muscle
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
   }
 `;

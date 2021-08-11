@@ -22,7 +22,7 @@ library.add(faBars, faChevronLeft, faChevronRight, faCog, faEye, faEyeSlash, faP
 const App = () => {
   const dispatch = useDispatch();
   const { user, authenticationStatus } = useSelector((state) => state.auth);
-
+  
   const checkAccessToken = async () => {
       try{
         const { data } = await axios({

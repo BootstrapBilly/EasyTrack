@@ -1,12 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createDay = /* GraphQL */ `
-  mutation CreateDay(
-    $input: CreateDayInput!
-    $condition: ModelDayConditionInput
-  ) {
-    createDay(input: $input, condition: $condition) {
+export const onCreateDay = /* GraphQL */ `
+  subscription OnCreateDay {
+    onCreateDay {
       id
       date
       kcals {
@@ -55,12 +52,9 @@ export const createDay = /* GraphQL */ `
     }
   }
 `;
-export const updateDay = /* GraphQL */ `
-  mutation UpdateDay(
-    $input: UpdateDayInput!
-    $condition: ModelDayConditionInput
-  ) {
-    updateDay(input: $input, condition: $condition) {
+export const onUpdateDay = /* GraphQL */ `
+  subscription OnUpdateDay {
+    onUpdateDay {
       id
       date
       kcals {
@@ -109,12 +103,9 @@ export const updateDay = /* GraphQL */ `
     }
   }
 `;
-export const deleteDay = /* GraphQL */ `
-  mutation DeleteDay(
-    $input: DeleteDayInput!
-    $condition: ModelDayConditionInput
-  ) {
-    deleteDay(input: $input, condition: $condition) {
+export const onDeleteDay = /* GraphQL */ `
+  subscription OnDeleteDay {
+    onDeleteDay {
       id
       date
       kcals {
@@ -163,12 +154,9 @@ export const deleteDay = /* GraphQL */ `
     }
   }
 `;
-export const createMeal = /* GraphQL */ `
-  mutation CreateMeal(
-    $input: CreateMealInput!
-    $condition: ModelMealConditionInput
-  ) {
-    createMeal(input: $input, condition: $condition) {
+export const onCreateMeal = /* GraphQL */ `
+  subscription OnCreateMeal {
+    onCreateMeal {
       id
       macros {
         protein
@@ -197,12 +185,9 @@ export const createMeal = /* GraphQL */ `
     }
   }
 `;
-export const updateMeal = /* GraphQL */ `
-  mutation UpdateMeal(
-    $input: UpdateMealInput!
-    $condition: ModelMealConditionInput
-  ) {
-    updateMeal(input: $input, condition: $condition) {
+export const onUpdateMeal = /* GraphQL */ `
+  subscription OnUpdateMeal {
+    onUpdateMeal {
       id
       macros {
         protein
@@ -231,12 +216,9 @@ export const updateMeal = /* GraphQL */ `
     }
   }
 `;
-export const deleteMeal = /* GraphQL */ `
-  mutation DeleteMeal(
-    $input: DeleteMealInput!
-    $condition: ModelMealConditionInput
-  ) {
-    deleteMeal(input: $input, condition: $condition) {
+export const onDeleteMeal = /* GraphQL */ `
+  subscription OnDeleteMeal {
+    onDeleteMeal {
       id
       macros {
         protein
@@ -265,12 +247,9 @@ export const deleteMeal = /* GraphQL */ `
     }
   }
 `;
-export const createFood = /* GraphQL */ `
-  mutation CreateFood(
-    $input: CreateFoodInput!
-    $condition: ModelFoodConditionInput
-  ) {
-    createFood(input: $input, condition: $condition) {
+export const onCreateFood = /* GraphQL */ `
+  subscription OnCreateFood {
+    onCreateFood {
       id
       name
       macros {
@@ -286,12 +265,9 @@ export const createFood = /* GraphQL */ `
     }
   }
 `;
-export const updateFood = /* GraphQL */ `
-  mutation UpdateFood(
-    $input: UpdateFoodInput!
-    $condition: ModelFoodConditionInput
-  ) {
-    updateFood(input: $input, condition: $condition) {
+export const onUpdateFood = /* GraphQL */ `
+  subscription OnUpdateFood {
+    onUpdateFood {
       id
       name
       macros {
@@ -307,12 +283,9 @@ export const updateFood = /* GraphQL */ `
     }
   }
 `;
-export const deleteFood = /* GraphQL */ `
-  mutation DeleteFood(
-    $input: DeleteFoodInput!
-    $condition: ModelFoodConditionInput
-  ) {
-    deleteFood(input: $input, condition: $condition) {
+export const onDeleteFood = /* GraphQL */ `
+  subscription OnDeleteFood {
+    onDeleteFood {
       id
       name
       macros {
@@ -328,18 +301,17 @@ export const deleteFood = /* GraphQL */ `
     }
   }
 `;
-export const createWorkout = /* GraphQL */ `
-  mutation CreateWorkout(
-    $input: CreateWorkoutInput!
-    $condition: ModelWorkoutConditionInput
-  ) {
-    createWorkout(input: $input, condition: $condition) {
+export const onCreateWorkout = /* GraphQL */ `
+  subscription OnCreateWorkout {
+    onCreateWorkout {
       id
       name
       exercises {
         id
         name
         muscle
+        createdAt
+        updatedAt
       }
       createdBy
       createdAt
@@ -347,18 +319,17 @@ export const createWorkout = /* GraphQL */ `
     }
   }
 `;
-export const updateWorkout = /* GraphQL */ `
-  mutation UpdateWorkout(
-    $input: UpdateWorkoutInput!
-    $condition: ModelWorkoutConditionInput
-  ) {
-    updateWorkout(input: $input, condition: $condition) {
+export const onUpdateWorkout = /* GraphQL */ `
+  subscription OnUpdateWorkout {
+    onUpdateWorkout {
       id
       name
       exercises {
         id
         name
         muscle
+        createdAt
+        updatedAt
       }
       createdBy
       createdAt
@@ -366,18 +337,17 @@ export const updateWorkout = /* GraphQL */ `
     }
   }
 `;
-export const deleteWorkout = /* GraphQL */ `
-  mutation DeleteWorkout(
-    $input: DeleteWorkoutInput!
-    $condition: ModelWorkoutConditionInput
-  ) {
-    deleteWorkout(input: $input, condition: $condition) {
+export const onDeleteWorkout = /* GraphQL */ `
+  subscription OnDeleteWorkout {
+    onDeleteWorkout {
       id
       name
       exercises {
         id
         name
         muscle
+        createdAt
+        updatedAt
       }
       createdBy
       createdAt
@@ -385,12 +355,9 @@ export const deleteWorkout = /* GraphQL */ `
     }
   }
 `;
-export const createSet = /* GraphQL */ `
-  mutation CreateSet(
-    $input: CreateSetInput!
-    $condition: ModelSetConditionInput
-  ) {
-    createSet(input: $input, condition: $condition) {
+export const onCreateSet = /* GraphQL */ `
+  subscription OnCreateSet {
+    onCreateSet {
       id
       weight
       reps
@@ -399,12 +366,9 @@ export const createSet = /* GraphQL */ `
     }
   }
 `;
-export const updateSet = /* GraphQL */ `
-  mutation UpdateSet(
-    $input: UpdateSetInput!
-    $condition: ModelSetConditionInput
-  ) {
-    updateSet(input: $input, condition: $condition) {
+export const onUpdateSet = /* GraphQL */ `
+  subscription OnUpdateSet {
+    onUpdateSet {
       id
       weight
       reps
@@ -413,12 +377,9 @@ export const updateSet = /* GraphQL */ `
     }
   }
 `;
-export const deleteSet = /* GraphQL */ `
-  mutation DeleteSet(
-    $input: DeleteSetInput!
-    $condition: ModelSetConditionInput
-  ) {
-    deleteSet(input: $input, condition: $condition) {
+export const onDeleteSet = /* GraphQL */ `
+  subscription OnDeleteSet {
+    onDeleteSet {
       id
       weight
       reps
@@ -427,12 +388,9 @@ export const deleteSet = /* GraphQL */ `
     }
   }
 `;
-export const createSession = /* GraphQL */ `
-  mutation CreateSession(
-    $input: CreateSessionInput!
-    $condition: ModelSessionConditionInput
-  ) {
-    createSession(input: $input, condition: $condition) {
+export const onCreateSession = /* GraphQL */ `
+  subscription OnCreateSession {
+    onCreateSession {
       createdBy
       exerciseId
       id
@@ -448,12 +406,9 @@ export const createSession = /* GraphQL */ `
     }
   }
 `;
-export const updateSession = /* GraphQL */ `
-  mutation UpdateSession(
-    $input: UpdateSessionInput!
-    $condition: ModelSessionConditionInput
-  ) {
-    updateSession(input: $input, condition: $condition) {
+export const onUpdateSession = /* GraphQL */ `
+  subscription OnUpdateSession {
+    onUpdateSession {
       createdBy
       exerciseId
       id
@@ -469,12 +424,9 @@ export const updateSession = /* GraphQL */ `
     }
   }
 `;
-export const deleteSession = /* GraphQL */ `
-  mutation DeleteSession(
-    $input: DeleteSessionInput!
-    $condition: ModelSessionConditionInput
-  ) {
-    deleteSession(input: $input, condition: $condition) {
+export const onDeleteSession = /* GraphQL */ `
+  subscription OnDeleteSession {
+    onDeleteSession {
       createdBy
       exerciseId
       id
@@ -485,6 +437,39 @@ export const deleteSession = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateExercise = /* GraphQL */ `
+  subscription OnCreateExercise {
+    onCreateExercise {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateExercise = /* GraphQL */ `
+  subscription OnUpdateExercise {
+    onUpdateExercise {
+      id
+      name
+      muscle
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteExercise = /* GraphQL */ `
+  subscription OnDeleteExercise {
+    onDeleteExercise {
+      id
+      name
+      muscle
       createdAt
       updatedAt
     }
