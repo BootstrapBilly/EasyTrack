@@ -4,10 +4,14 @@ import { API, graphqlOperation } from "aws-amplify";
 import { getWorkout, listSessions } from '../../../../graphql/queries';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ExerciseTracker } from './components';
 
 const WorkoutDetail = () => {
     const { user: { userId } } = useSelector(state => state.auth);
+
     const [exercises, setExercises] = useState([]);
+    const [sessionsAdded, setSessionsAdded] = useState(false);
+
     const { id } = useParams();
 
     const getWorkoutQuery = async () => {
@@ -50,6 +54,7 @@ const WorkoutDetail = () => {
             
             if(count === exercises.length) {
                 setExercises(exercisesWithSessionHistory);
+                setSessionsAdded(true);
             }
         })
 
@@ -62,8 +67,8 @@ const WorkoutDetail = () => {
     useEffect(getWorkoutQuery, []);
 
     return (
-        <div className="h-full overflow-y-auto">
-
+        <div className="h-full w-full overflow-y-auto grid grid-cols-1 place-items-center gap-14 py-12">
+            {sessionsAdded && exercises.map((exercise) => <ExerciseTracker exercise={exercise} />)}
         </div>
     )
 }
