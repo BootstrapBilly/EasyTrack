@@ -71,27 +71,27 @@ const WorkoutDetail = () => {
 
     }
  
-    useEffect(() => {
-        if(exercises?.length) { addSessionHistoryToExercises() }
-    }, [exercises.length])
+    // useEffect(() => {
+    //     if(exercises?.length) { addSessionHistoryToExercises() }
+    // }, [exercises.length])
 
     useEffect(getWorkoutQuery, []);
 
     return (
         <>
-            {sessionsAdded && (
+            {/* {sessionsAdded && ( */}
                 <div className="h-full w-full flex flex-col items-center overflow-hidden">
                     <div className="h-full w-full overflow-hidden flex items-center justify-center">
                         <ExerciseTracker exercise={exercises[selectedExerciseIndex]} />
                     </div>
-                    <div className="bg-white w-full h-36 flex overflow-x-auto items-center justify-center">
+                    <div className="bg-white w-full h-36 flex overflow-x-auto items-center">
                         {exercises.map(({name}, index) => 
                             <div className="ml-4">
                                 <ExerciseIconPill name={name} backgroundColor={selectedExerciseIndex === index ? "bg-brand" : "bg-grey-light"} cursorPointer onClick={() => setSelectedExerciseIndex(index)}/>
                             </div>)}
                     </div>
                 </div>
-            )}
+            {/* )} */}
         </>
     )
 }

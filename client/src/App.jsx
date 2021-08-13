@@ -7,6 +7,7 @@ import {
   faChevronLeft,
   faChevronRight,
   faCog,
+  faEdit,
   faEye,
   faEyeSlash,
   faPlus,
@@ -17,7 +18,7 @@ import { BACKEND_URL } from "./constants";
 import { refreshSession } from "./store/actions";
 import { Header } from "./components";
 
-library.add(faBars, faChevronLeft, faChevronRight, faCog, faEye, faEyeSlash, faPlus);
+library.add(faBars, faChevronLeft, faChevronRight, faCog, faEdit, faEye, faEyeSlash, faPlus);
 
 const App = () => {
   const dispatch = useDispatch();

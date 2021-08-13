@@ -345,6 +345,7 @@ export const listSessions = /* GraphQL */ `
   ) {
     sessions: listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        id
         sets {
           weight
           reps
