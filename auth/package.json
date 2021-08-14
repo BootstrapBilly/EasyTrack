@@ -22,7 +22,7 @@
     "sinon": "^11.1.1"
   },
   "dependencies": {
-    "@billyjames/util-packages": "^1.0.1",
+    "@billyjames/util-packages": "^1.0.3",
     "bcrypt": "^5.0.1",
     "common-password-checker": "^0.1.0",
     "cookie-parser": "^1.4.5",
