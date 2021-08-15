@@ -25,6 +25,16 @@ const typeDefs = gql`
     exercises: [createExerciseInput]
   }
 
+  input getExercisesFilter {
+    muscle: MuscleEnum
+    createdBy: String
+  }
+
+  input getSessionsFilter {
+    createdBy: String!
+    exerciseId: String!
+  }
+
   type Exercise {
     id: ID!
     name: String!
@@ -38,11 +48,26 @@ const typeDefs = gql`
     createdBy: String
   }
 
+  type Set {
+    reps: Int
+    weight: Int
+  }
+
+  type Session {
+    id: ID!
+    exerciseId: String!
+    sets: [Set]
+  }
+
   type Query {
+    getWorkout(id: String!): Workout
     getWorkouts(createdBy: String!): [Workout]
+    getExercises(filter: getExercisesFilter): [Exercise]
+    getSessions(filter: getSessionsFilter!): [Session]
   }
 
   type Mutation {
+    createExercise(input: createExerciseInput!): Exercise
     createWorkout(input: createWorkoutInput!): Workout 
   }
 

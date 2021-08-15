@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { List } from './components';
-import { listWorkouts } from "../../../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
 import { useSelector } from 'react-redux';
 import { Button } from '../../../../components';
 import { useNavigate } from '../../../../hooks';
 import { WorkoutsRoutes } from "../../../../constants";
+import { gql, useLazyQuery } from '@apollo/client';
 
 const { ADD_WORKOUT } = WorkoutsRoutes;
 
@@ -15,21 +14,39 @@ const Workouts = () => {
 
     const [workouts, setWorkouts] = useState([]);
 
-    const getWorkouts = async () => {
-        try {
-            const { data: { listWorkouts: { items } } } = await API.graphql(graphqlOperation(listWorkouts, { filter: { createdBy: { eq: userId } } }));
-            setWorkouts(items);
-        } catch(e) {
-            console.log(e);
-        }
+    const [getWorkouts] = useLazyQuery(
+        gql`
+    query Query($getWorkoutsCreatedBy: String!) {
+  workouts: getWorkouts(createdBy: $getWorkoutsCreatedBy) {
+    name
+    id
+    exercises {
+      name
+      muscle
     }
+  }
+}
+    `, {
+        variables: {
+            getWorkoutsCreatedBy: userId,
+        },
+        fetchPolicy: "no-cache",
+
+        onCompleted: ({workouts}) => {
+            setWorkouts(workouts);
+        },
+        onError: ({ graphQLErrors, networkError }) => {
+            // @todo handle errors
+        },
+    });
     
     const openAddNewForm = () => {
         navigateTo({ location: ADD_WORKOUT });
     }
 
+    const fetchWorkouts = async () => await getWorkouts();
     useEffect(() => {
-        getWorkouts()
+        fetchWorkouts()
     }, [])
 
     return (

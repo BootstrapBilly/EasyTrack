@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react'
 import { Form } from '../../../../components';
-import { API, graphqlOperation } from "aws-amplify";
 import { checkRequiredValue as valueMissing } from "@billyjames/util-packages";
 import { useSelector } from 'react-redux';
-import { createWorkout } from '../../../../graphql/mutations';
 import { useNavigate } from '../../../../hooks';
 import { WorkoutsRoutes } from "../../../../constants";
+import { useMutation, gql } from '@apollo/client';
 
 const { WORKOUTS } = WorkoutsRoutes;
 
@@ -30,6 +29,23 @@ const AddWorkout = () => {
     }, [formStates, currentStep])
 
 
+    const [createWorkout] = useMutation(
+        gql`
+mutation CreateWorkoutMutation($createWorkoutInput: createWorkoutInput!) {
+  createWorkout(input: $createWorkoutInput) {
+    id
+  }
+}
+    `, {
+
+        onCompleted: (data) => {
+            console.log(data);
+        },
+        onError: ({ graphQLErrors, networkError }) => {
+            // @todo handle errors
+        },
+    });
+
     const handleSubmit = async (value) => {
         if(currentStep === NAME) { 
             const name = value;
@@ -37,9 +53,19 @@ const AddWorkout = () => {
             return setCurrentStep(ADD_EXERCISES) 
         };
 
-        const exercises = value;
+        const exercises = value.map(({name, muscle}) => ({name, muscle}));
+
         try {
-            await API.graphql(graphqlOperation(createWorkout, { input: { createdBy: userId, name: workoutName, exercises } }));
+            await createWorkout({
+                variables: {
+                    createWorkoutInput: {
+                        name: workoutName,
+                        createdBy: userId,
+                        exercises,
+                    },
+                },
+            })
+
             navigateTo({ location: WORKOUTS })
         } catch( err) {
             // @ todo - error handling

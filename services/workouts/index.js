@@ -1,7 +1,7 @@
 const { ApolloServer } = require("apollo-server");
 const mongoose = require("mongoose");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
-const { Workout } = require("./models");
+const { Workout, Exercise, Session } = require("./models");
 const resolvers = require("./resolvers");
 const typeDefs = require("./typedefs");
 const env = require("dotenv");
@@ -26,7 +26,7 @@ const server = new ApolloServer({
           console.log('could not connect to the database', error)
         }
   
-      return { models: { Workout } }
+      return { models: { Workout, Exercise, Session } }
     },
   })
 
