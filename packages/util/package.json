@@ -1,0 +1,14 @@
+{
+  "name": "@billyjames/util-packages",
+  "version": "1.0.5",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ava": "^3.15.0"
+  }
+}

@@ -35,10 +35,10 @@ type Workout @model {
 }
 
 type Set @model {
-  id: ID!
+  id: ID
   # weightType: WeightTypeEnum!
-  weight: Int!
-  reps: Int!
+  weight: Int
+  reps: Int
   # effort: Int
 }
 
