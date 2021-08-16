@@ -11,6 +11,7 @@ const workoutSchema = new Schema({
         required: true,
     },
     exercises: [{ 
+        id: String,
         name: String,
         muscle: String,
         _id: false 

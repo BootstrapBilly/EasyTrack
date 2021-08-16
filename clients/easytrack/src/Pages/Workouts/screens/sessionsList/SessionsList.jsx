@@ -1,32 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { ExerciseTracker } from './components';
+import { SessionTracker } from './components';
 import { ExerciseIconPill } from '../../../../components';
-import { useLazyQuery, gql } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
+import { GET_WORKOUT_QUERY } from "@billyjames/graphql-queries";
 
-const WorkoutDetail = () => {
-    const { user: { userId } } = useSelector(state => state.auth);
+const SessionsList = () => {
 
     const [exercises, setExercises] = useState([]);
     const [selectedExerciseIndex, setSelectedExerciseIndex] = useState(0);
 
     const { id } = useParams();
 
-    const [getWorkout] = useLazyQuery(
-        gql`
-            query Query($getWorkoutId: String!) {
-            workout: getWorkout(id: $getWorkoutId) {
-                id
-                name
-                exercises {
-                name
-                muscle
-                }
-            }
-        }
-    `,
-     {
+    const [getWorkout] = useLazyQuery(GET_WORKOUT_QUERY,{
         variables: {
             getWorkoutId: id,
         },
@@ -38,7 +24,6 @@ const WorkoutDetail = () => {
             // @todo handle errors
         },
     });
-
  
     useEffect(getWorkout, []);
 
@@ -47,7 +32,7 @@ const WorkoutDetail = () => {
             {exercises.length && (
                 <div className="h-full w-full flex flex-col items-center overflow-hidden">
                     <div className="h-full w-full overflow-hidden flex items-center justify-center">
-                        <ExerciseTracker exercise={exercises[selectedExerciseIndex]} />
+                        <SessionTracker exercise={exercises[selectedExerciseIndex]} />
                     </div>
                     <div className="bg-white w-full h-36 flex overflow-x-auto items-center">
                         {exercises.map(({name}, index) => 
@@ -66,4 +51,4 @@ const WorkoutDetail = () => {
     )
 }
 
-export default WorkoutDetail;
+export default SessionsList;

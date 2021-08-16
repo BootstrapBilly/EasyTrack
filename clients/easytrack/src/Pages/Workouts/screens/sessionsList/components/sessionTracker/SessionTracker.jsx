@@ -3,16 +3,33 @@ import { ExerciseIconPill } from "../../../../../../components"
 import Weight from "../../../../../../Assets/weight.svg";
 import WeightGrey from "../../../../../../Assets/weight-grey.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GET_SESSIONS_QUERY } from "@billyjames/graphql-queries";
+import { useLazyQuery } from '@apollo/client';
+import { useSelector } from 'react-redux';
 
-const ExerciseTracker = ({ exercise }) => {
-    const {  name
-    } = exercise;
 
-    const [numSetsInSessions, setNumSetsInSessions] = useState([]);
-    const [newSets, setNewSets] = useState({});
-    const [newWeightAdded, setNewWeightAdded] = useState(null);
-    const [newRepsAdded, setNewRepsAdded] = useState(null);
+const SessionTracker = ({ exercise }) => {
+    const { user: { userId } } = useSelector(state => state.auth);
+    const { name, id: exerciseId } = exercise;
 
+    console.log(exercise)
+    const [getSessions] = useLazyQuery(GET_SESSIONS_QUERY,{
+        variables: {
+            getSessionsFilter: {
+                exerciseId,
+                createdBy: userId
+            },
+        },
+        fetchPolicy: "no-cache",
+        onCompleted: (s) => {
+            console.log(s)
+        },
+        onError: ({ graphQLErrors, networkError }) => {
+            // @todo handle errors
+        },
+    });
+
+    useEffect(getSessions, [])
     // console.log(items)
 
 //     const name = "Incline bench press"
@@ -162,58 +179,7 @@ const ExerciseTracker = ({ exercise }) => {
 //     }
 // ]
 
-//     useEffect(() => {
-//         const setLengths = items.reduce((acc, { sets }) => {
-//             acc.push(sets.length);
-//             return acc;
-//         }, [])
-
-//         const setIds = items.reduce((acc, { id }) => {
-//             acc.push({sessionId: id});
-//             return acc;
-//         }, [])
-        
-//         setNumSetsInSessions(setLengths);
-//         setNewSets(setIds);
-//     }, [])
-
 //     console.log(newSets);
-
-//     const handleUpdateSet = async ({value, sessionId, sets, index, type}) => {
-//         const oldValue = sets[index][type];
-//         const valueChanged = oldValue.toString() !== value.toString();
-
-//         if(valueChanged) {
-//             sets[index][type] = parseInt(value);
-//             try {
-//                 await API.graphql(graphqlOperation(updateSession, { input: { id: sessionId, sets } }));
-//             } catch (e) {
-//                 console.log(e);
-//             }
-//         }
-//     }
-
-//     const handleAddNewSet = async ({value, sessionId, sets, type, sessionIndex}) => {
-//     //     if(value) {
-//     //         const session = newSets.find((sessionId) => sessionId);
-//     //         if(!session.newSet) {
-//     //             const clone = newSets;
-//     //             clone[sessionIndex] = { sessionId, sets: [...sets, // insert new set
-//     //               }
-//     //             setNewSets()
-//     //         }
-//     //         console.log(session)
-//     //         // const setLength = numSetsInSessions[sessionIndex]
-//     //         // sets[setLength] = {[type]: value}
-//     //         // try {
-//     //         //     await API.graphql(graphqlOperation(updateSession, { input: { id: sessionId, sets } }));
-//     //         // } catch (e) {
-//     //         //     console.log(e);
-//     //         // }
-//     //     }
-//     // }
-// }
-    
 
     return (
         <div className="h-90% w-90% shadow-lg bg-white rounded flex flex-col relative mt-2">
@@ -228,4 +194,4 @@ const ExerciseTracker = ({ exercise }) => {
     )
 }
 
-export default ExerciseTracker;
+export default SessionTracker;

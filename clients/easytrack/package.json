@@ -5,6 +5,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.7",
     "@babel/polyfill": "^7.12.1",
+    "@billyjames/graphql-queries": "^1.0.8",
     "@billyjames/util-packages": "^1.0.5",
     "@craco/craco": "^5.9.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -15,14 +16,9 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "aws-amplify": "^4.0.3",
-    "aws-amplify-react": "^5.0.1",
     "axios": "^0.21.1",
-    "browserslist": "^4.6.3",
     "common-password-checker": "^0.1.0",
     "graphql": "^14.0.0",
-    "jest-cra-svg-transform": "^1.0.2",
-    "jest-svg-transformer": "^1.0.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -32,14 +28,12 @@
     "react-scripts": "^4.0.3",
     "react-verification-input": "^2.0.1",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0",
-    "web-vitals": "^1.0.1"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test --watchAll --coverage",
-    "eject": "react-scripts eject"
+    "test": "craco test --watchAll --coverage"
   },
   "eslintConfig": {
     "extends": [

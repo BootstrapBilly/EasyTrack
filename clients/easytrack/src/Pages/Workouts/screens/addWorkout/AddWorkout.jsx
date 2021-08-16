@@ -4,7 +4,8 @@ import { checkRequiredValue as valueMissing } from "@billyjames/util-packages";
 import { useSelector } from 'react-redux';
 import { useNavigate } from '../../../../hooks';
 import { WorkoutsRoutes } from "../../../../constants";
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { CREATE_WORKOUT_MUTATION } from "@billyjames/graphql-queries";
 
 const { WORKOUTS } = WorkoutsRoutes;
 
@@ -29,20 +30,12 @@ const AddWorkout = () => {
     }, [formStates, currentStep])
 
 
-    const [createWorkout] = useMutation(
-        gql`
-mutation CreateWorkoutMutation($createWorkoutInput: createWorkoutInput!) {
-  createWorkout(input: $createWorkoutInput) {
-    id
-  }
-}
-    `, {
-
+    const [createWorkout] = useMutation(CREATE_WORKOUT_MUTATION, {
         onCompleted: (data) => {
-            console.log(data);
+            navigateTo({ location: WORKOUTS })
         },
         onError: ({ graphQLErrors, networkError }) => {
-            // @todo handle errors
+            // @todo add error handling
         },
     });
 
@@ -50,27 +43,21 @@ mutation CreateWorkoutMutation($createWorkoutInput: createWorkoutInput!) {
         if(currentStep === NAME) { 
             const name = value;
             setWorkoutName(name);
+            
             return setCurrentStep(ADD_EXERCISES) 
         };
 
-        const exercises = value.map(({name, muscle}) => ({name, muscle}));
+        const exercises = value.map(({id, name, muscle}) => ({id, name, muscle}));
 
-        try {
-            await createWorkout({
-                variables: {
-                    createWorkoutInput: {
-                        name: workoutName,
-                        createdBy: userId,
-                        exercises,
-                    },
+        await createWorkout({
+            variables: {
+                createWorkoutInput: {
+                    name: workoutName,
+                    createdBy: userId,
+                    exercises,
                 },
-            })
-
-            navigateTo({ location: WORKOUTS })
-        } catch( err) {
-            // @ todo - error handling
-            console.log(err)
-        }
+            },
+        })
        
     }
 
@@ -97,7 +84,8 @@ mutation CreateWorkoutMutation($createWorkoutInput: createWorkoutInput!) {
                 }
 
                 {currentStep === ADD_EXERCISES && <Form.ExerciseAdder
-                    buttonText="ADD WORKOUT" onClick={(exercises) => handleSubmit(exercises)}
+                    buttonText="ADD WORKOUT" 
+                    onClick={(exercises) => handleSubmit(exercises)}
                     exerciseContainerClassName="md:max-w-80% lg:max-w-70% xl:max-w-60%"
                     buttonWrapperClassName="mt-4 md:mt-4 md:w-48"
                 />}      

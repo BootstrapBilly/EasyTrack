@@ -15,6 +15,7 @@ const typeDefs = gql`
   }
 
   input createExerciseInput {
+    id: ID
     name: String!
     muscle: MuscleEnum!
   }

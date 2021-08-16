@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import { Button } from '../../../../components';
 import { useNavigate } from '../../../../hooks';
 import { WorkoutsRoutes } from "../../../../constants";
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
+import { GET_WORKOUTS_QUERY } from "@billyjames/graphql-queries";
 
 const { ADD_WORKOUT } = WorkoutsRoutes;
 
@@ -14,24 +15,11 @@ const Workouts = () => {
 
     const [workouts, setWorkouts] = useState([]);
 
-    const [getWorkouts] = useLazyQuery(
-        gql`
-    query Query($getWorkoutsCreatedBy: String!) {
-  workouts: getWorkouts(createdBy: $getWorkoutsCreatedBy) {
-    name
-    id
-    exercises {
-      name
-      muscle
-    }
-  }
-}
-    `, {
+    const [getWorkouts] = useLazyQuery(GET_WORKOUTS_QUERY, {
         variables: {
             getWorkoutsCreatedBy: userId,
         },
         fetchPolicy: "no-cache",
-
         onCompleted: ({workouts}) => {
             setWorkouts(workouts);
         },

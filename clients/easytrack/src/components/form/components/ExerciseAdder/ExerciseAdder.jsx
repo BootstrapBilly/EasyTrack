@@ -2,62 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { startCase } from 'lodash';
 import { Exercise } from '../../../exercise';
 import { Button } from '../../../button';
-import { useLazyQuery, gql } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
+import { LIST_EXERCISES_BY_MUSCLE_MUTATION } from "@billyjames/graphql-queries";
 
 const ExerciseAdder = ({ onClick, buttonText, buttonWrapperClassName, exerciseContainerClassName }) => {
     const [availableExercises, setAvailableExercises] = useState([])
     const [selectedExercises, setSelectedExercises] = useState([]);
 
-        const [getExercises] = useLazyQuery(
-        gql`
-        query Query {
-        CHEST: getExercises(filter: {muscle: CHEST }) {
-            id
-            name
-            muscle
-        }
-        BACK: getExercises(filter: {muscle: BACK }) {
-            id
-            name
-            muscle
-        }
-        SHOULDERS: getExercises(filter: {muscle: SHOULDERS }) {
-            id
-            name
-            muscle
-        }
-        BICEPS: getExercises(filter: {muscle: BICEPS }) {
-            id
-            name
-            muscle
-        }
-        TRICEPS: getExercises(filter: {muscle: TRICEPS }) {
-            id
-            name
-            muscle
-        }
-        GLUTES: getExercises(filter: {muscle: GLUTES }) {
-            id
-            name
-            muscle
-        }
-        HAMSTRINGS: getExercises(filter: {muscle: HAMSTRINGS }) {
-            id
-            name
-            muscle
-        }
-        CALFS: getExercises(filter: {muscle: CALFS }) {
-            id
-            name
-            muscle
-        }
-        COMPOUND: getExercises(filter: {muscle: COMPOUND }) {
-            id
-            name
-            muscle
-        }
-        }
-    `, {
+        const [getExercises] = useLazyQuery(LIST_EXERCISES_BY_MUSCLE_MUTATION, {
+        fetchPolicy: "no-cache",
         onCompleted: (exercises) => {
             setAvailableExercises(Object.entries(exercises));
         },

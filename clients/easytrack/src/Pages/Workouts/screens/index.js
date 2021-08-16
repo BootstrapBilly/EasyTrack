@@ -1,4 +1,4 @@
 /* istanbul ignore file */
 export { AddWorkout } from "./addWorkout";
-export { WorkoutDetail } from "./workoutDetail";
+export { SessionsList } from "./sessionsList";
 export { WorkoutsList } from "./workoutsList";
