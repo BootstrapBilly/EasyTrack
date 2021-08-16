@@ -28,7 +28,7 @@ const Button = ({children, className, size, style, variant, onClick}) => {
                 fullWidth 
                 className={`${height} shadow`} 
                 type="button" s
-                tyle={{fontWeight: 500, ...styling, ...style}} 
+                style={{fontWeight: 500, ...styling, ...style}} 
                 onClick={onClick} data-testid="button">
                 {children}
             </ButtonComponent>

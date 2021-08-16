@@ -11,6 +11,7 @@ import {
   faEye,
   faEyeSlash,
   faPlus,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -21,7 +22,7 @@ import { Routes } from "./constants";
 
 const { WORKOUTS } = Routes;
 
-library.add(faBars, faChevronLeft, faChevronRight, faCog, faEdit, faEye, faEyeSlash, faPlus);
+library.add(faBars, faChevronLeft, faChevronRight, faCog, faEdit, faEye, faEyeSlash, faPlus, faTrashAlt);
 
 const App = () => {
   const dispatch = useDispatch();

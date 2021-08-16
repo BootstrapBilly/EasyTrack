@@ -5,7 +5,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.7",
     "@babel/polyfill": "^7.12.1",
-    "@billyjames/graphql-queries": "^1.0.8",
+    "@billyjames/graphql-queries": "^1.0.15",
     "@billyjames/util-packages": "^1.0.5",
     "@craco/craco": "^5.9.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

@@ -1227,10 +1227,10 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
-"@billyjames/graphql-queries@^1.0.8":
-  "integrity" "sha512-uO/yVgjFQ3xv2Snv1iK0dblCaK42zptcH7k6D4guw5MaKY2NSRaJb6zMaR6Nf+X6M2zbFNkcD99JZyI9oUxLyw=="
-  "resolved" "https://registry.npmjs.org/@billyjames/graphql-queries/-/graphql-queries-1.0.8.tgz"
-  "version" "1.0.8"
+"@billyjames/graphql-queries@^1.0.15":
+  "integrity" "sha512-wvxOvqL9N46RxJKawD2TXalzk+KO5/RuUvCCidajoptkDlKaiWf65FFJo+HlsPK5wl3fyelttFaTvdwzKqawfg=="
+  "resolved" "https://registry.npmjs.org/@billyjames/graphql-queries/-/graphql-queries-1.0.15.tgz"
+  "version" "1.0.15"
   dependencies:
     "@apollo/client" "^3.4.7"
 

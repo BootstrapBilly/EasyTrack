@@ -26,6 +26,11 @@ const typeDefs = gql`
     exercises: [createExerciseInput]
   }
 
+  input createSessionInput {
+    exerciseId: String!
+    createdBy: String!
+  }
+
   input getExercisesFilter {
     muscle: MuscleEnum
     createdBy: String
@@ -34,6 +39,13 @@ const typeDefs = gql`
   input getSessionsFilter {
     createdBy: String!
     exerciseId: String!
+  }
+
+  input updateSetInput {
+    value: String! 
+    sessionId: String! 
+    index: Int! 
+    type: String!
   }
 
   type Exercise {
@@ -68,8 +80,12 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    addSetToSession(id: ID!): Session
     createExercise(input: createExerciseInput!): Exercise
     createWorkout(input: createWorkoutInput!): Workout 
+    createSession(input: createSessionInput!): Session
+    deleteSession(id: ID!): Session
+    updateSet(input: updateSetInput!): Session
   }
 
 `

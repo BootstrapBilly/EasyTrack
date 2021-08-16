@@ -2,10 +2,46 @@ const { gql } = require('@apollo/client');
 
 module.exports = {
 
+ADD_SET_TO_SESSION:gql`
+mutation AddSetToSessionMutation($addSetToSessionId: ID!) {
+  session: addSetToSession(id: $addSetToSessionId) {
+    id
+    exerciseId
+    sets {
+      reps
+      weight
+    }
+  }
+}`,
+
+CREATE_SESSION_MUTATION:gql`
+mutation CreateSessionMutation($createSessionInput: createSessionInput!) {
+  session: createSession(input: $createSessionInput) {
+    id
+    exerciseId
+    sets {
+      reps
+      weight
+    }
+  }
+}`,  
+
 CREATE_WORKOUT_MUTATION:gql`
 mutation CreateWorkoutMutation($createWorkoutInput: createWorkoutInput!) {
   createWorkout(input: $createWorkoutInput) {
     id
+  }
+}`,
+
+DELETE_SESSION:gql`
+mutation DeleteSessionMutation($deleteSessionId: ID!) {
+  session: deleteSession(id: $deleteSessionId) {
+    id
+    exerciseId
+    sets {
+      reps
+      weight
+    }
   }
 }`,
 
@@ -93,9 +129,19 @@ query Query($getSessionsFilter: getSessionsFilter!) {
       weight
     }
   }
-}
-`
+}`,
 
+UPDATE_SET:gql`
+mutation UpdateSetMutation($updateSetInput: updateSetInput!) {
+  session: updateSet(input: $updateSetInput) {
+    id
+    exerciseId
+    sets {
+      reps
+      weight
+    }
+  }
+}`
 
 
 

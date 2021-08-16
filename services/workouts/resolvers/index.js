@@ -1,5 +1,5 @@
 const { getWorkout, getWorkouts, getExercises, getSessions } = require("./queries");
-const { createWorkout, createExercise } = require("./mutation");
+const { addSetToSession, createWorkout, createExercise, createSession, deleteSession, updateSet } = require("./mutation");
 
 module.exports = {
     Query: {
@@ -9,7 +9,11 @@ module.exports = {
         getSessions,
     },
     Mutation: {
+        addSetToSession,
         createWorkout,
         createExercise,
+        createSession,
+        deleteSession,
+        updateSet,
     }
 }
