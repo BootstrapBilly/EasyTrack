@@ -1,7 +1,14 @@
 const { User } = require("../../models");
 const crypto = require("crypto");
-const { validateEmailAddress } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, sendPasswordResetEmail, sanitize, attackDetectedResponse } = require("../../util");
+const { 
+    validateEmailAddress, 
+    userErrorResponse, 
+    serverErrorResponse,  
+    sanitize, 
+    attackDetectedResponse 
+} = require("@billyjames/util-packages");
+const { sendPasswordResetEmail } = require("../../util");
+
 
 const generateResetEmail = async (req, res) => {
     const responseMessage = "If your email address was found, we just sent you an email with instructions to reset your password";

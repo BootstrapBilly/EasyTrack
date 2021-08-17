@@ -1,9 +1,16 @@
 const { User } = require("../../models");
-const { checkRequiredValue, validateEmailAddress } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, attackDetectedResponse, sanitize, generateJWT } = require("../../util");
+const { 
+    checkRequiredValue, 
+    validateEmailAddress, 
+    userErrorResponse, 
+    serverErrorResponse, 
+    attackDetectedResponse, 
+    sanitize, 
+    generateJWT, 
+    generateRefreshJWT 
+} = require("@billyjames/util-packages");
 const commonPassword = require("common-password-checker");
 const bcrypt = require('bcrypt');
-const { generateRefreshJWT } = require("../../util/jwt");
 
 const signup = async (req, res) => {
     try {
@@ -43,8 +50,8 @@ const signup = async (req, res) => {
             password: hashedPassword,
         })
 
-        const jwt = generateJWT(user._id);
-        const refresh = generateRefreshJWT(user._id);
+        const jwt = generateJWT({ userId: user._id, secret: process.env.JWTSECRET });
+        const refresh = generateRefreshJWT({ userId: user._id, secret: process.env.JWTREFRESHSECRET });
 
         const userData = { username: user.username, userId: user._id, email: user.email };
 

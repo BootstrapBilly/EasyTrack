@@ -1,5 +1,4 @@
-const { serverErrorResponse, attackDetectedResponse } = require("../../util");
-const { verifyRefreshJWT, generateJWT } = require("../../util/jwt");
+const { serverErrorResponse, attackDetectedResponse, verifyRefreshJWT, generateJWT } = require("@billyjames/util-packages");
 
 const refreshToken = async (req, res) => {
     try {
@@ -11,13 +10,13 @@ const refreshToken = async (req, res) => {
             return res.status(401).json({message: "Unauthenticated"})
         }
 
-        const decodedToken = verifyRefreshJWT(refreshToken);
+        const decodedToken = verifyRefreshJWT({ token: refreshToken, secret: process.env.JWTREFRESHSECRET });
 
         if(!decodedToken) { return attackDetectedResponse(res); }
      
         const { userId } = user;
 
-        newAccessToken = generateJWT(userId);
+        newAccessToken = generateJWT({ userId, secret: process.env.JWTSECRET });
 
         return res.status(200).json({ success: true, jwt: newAccessToken, user })
     }

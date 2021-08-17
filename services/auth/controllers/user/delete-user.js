@@ -1,5 +1,5 @@
 const { User } = require("../../models");
-const { userErrorResponse, serverErrorResponse, sanitize, attackDetectedResponse } = require("../../util");
+const { userErrorResponse, serverErrorResponse, sanitize, attackDetectedResponse } = require("@billyjames/util-packages");
 const bcrypt = require('bcrypt');
 
 const deleteUser = async (req, res) => {

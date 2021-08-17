@@ -1,4 +1,6 @@
-const { ApolloServer } = require("apollo-server");
+const express = require('express');
+const cors = require('cors')
+const { ApolloServer } = require('apollo-server-express');
 const mongoose = require("mongoose");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 const { Workout, Exercise, Session } = require("./models");
@@ -12,6 +14,8 @@ const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
 });
+
+const startApolloServer = async () => {
 
 const server = new ApolloServer({
     schema,
@@ -30,6 +34,19 @@ const server = new ApolloServer({
     },
   })
 
-server.listen(4000);
-console.log("\n\x1b[36mWorkouts running on port 4000\n")
+  await server.start();
+
+  const app = express();
+  app.use(cors(
+    // { origin: "https://geteasytrack.web.app", credentials: true}
+   { origin: "http://localhost:3000", credentials: true }
+    ));
+  server.applyMiddleware({ app });
+
+  await new Promise(resolve => app.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  return { server, app };
+}
+
+ startApolloServer()
 

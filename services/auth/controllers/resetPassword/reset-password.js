@@ -1,6 +1,11 @@
 const { User } = require("../../models");
-const { checkRequiredValue } = require("@billyjames/util-packages");
-const { userErrorResponse, serverErrorResponse, sanitize, attackDetectedResponse } = require("../../util");
+const { 
+    checkRequiredValue, 
+    userErrorResponse, 
+    serverErrorResponse, 
+    sanitize, 
+    attackDetectedResponse 
+} = require("@billyjames/util-packages");
 const commonPassword = require("common-password-checker");
 const bcrypt = require('bcrypt');
 

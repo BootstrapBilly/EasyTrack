@@ -1,5 +1,5 @@
 const { User } = require("../../models");
-const { serverErrorResponse, userErrorResponse, sanitize, attackDetectedResponse } = require("../../util");
+const { serverErrorResponse, userErrorResponse, sanitize, attackDetectedResponse } = require("@billyjames/util-packages");
 
 const verify2facode = async (req, res) => {      
     try {

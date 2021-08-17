@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { User } = require("../../models");
-const { serverErrorResponse, userErrorResponse, sanitize, attackDetectedResponse } = require("../../util");
+const { serverErrorResponse, userErrorResponse, sanitize, attackDetectedResponse } = require("@billyjames/util-packages");
 const crypto = require("crypto"); // generate random code for the text
 const Cryptr = require('cryptr'); // encrypt/decrypt phone number
 const cryptr = new Cryptr(process.env.ENCRYPTIONKEY);

@@ -1,4 +1,5 @@
-const { attackDetectedResponse, serverErrorResponse, verifyJWT } = require("@billyjames/util-packages");
+const { attackDetectedResponse, serverErrorResponse } = require("../util");
+const { verifyJWT } = require("../util/jwt");
 
 const verifyjwt = ((req, res, next) => {
     let decodedToken = null;
@@ -7,7 +8,7 @@ const verifyjwt = ((req, res, next) => {
       if (!req.get("Authorization")) return attackDetectedResponse(res); // check if an authorization header is present
       const token = req.get("Authorization").split(" ")[1]; // split the token from the bearer
 
-      decodedToken = verifyJWT({ token, secret: process.env.JWTSECRET }); // verify it
+      decodedToken = verifyJWT(token); // verify it
     } catch (err) {
       return serverErrorResponse(res) // return server error if something goes wrong
     }
