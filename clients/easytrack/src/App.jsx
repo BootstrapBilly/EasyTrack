@@ -19,6 +19,14 @@ import { BACKEND_URL } from "./constants";
 import { refreshSession } from "./store/actions";
 import { Header } from "./components";
 import { Routes } from "./constants";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { WORKOUTS_URL } from "./constants";
+import { setContext } from '@apollo/client/link/context';
 
 const { WORKOUTS } = Routes;
 
@@ -26,8 +34,28 @@ library.add(faBars, faChevronLeft, faChevronRight, faCog, faEdit, faEye, faEyeSl
 
 const App = () => {
   const dispatch = useDispatch();
-  const { user, authenticationStatus } = useSelector((state) => state.auth);
+  const { user, authenticationStatus, jwt } = useSelector((state) => state.auth);
   
+  const httpLink = createHttpLink({
+    uri: WORKOUTS_URL,
+  });
+  
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization:`Bearer ${jwt}`,
+      }
+    }
+  });
+  
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache()
+  });
+
   const checkAccessToken = async () => {
       try{
         const { data } = await axios({
@@ -57,17 +85,19 @@ const App = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route path={["/", "/dashboard"]}exact>
-            <Dashboard />
-          </Route>
-          <Route path={`/${WORKOUTS}`}>
-            <WorkoutsRoot />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <Header />
+          <Switch>
+            <Route path={["/", "/dashboard"]}exact>
+              <Dashboard />
+            </Route>
+            <Route path={`/${WORKOUTS}`}>
+              <WorkoutsRoot />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </ApolloProvider>
     </div>
   );
 };

@@ -7,6 +7,7 @@ const { Workout, Exercise, Session } = require("./models");
 const resolvers = require("./resolvers");
 const typeDefs = require("./typedefs");
 const env = require("dotenv");
+const { verifyjwt } = require("./middleware");
 
 env.config();
 
@@ -37,10 +38,13 @@ const server = new ApolloServer({
   await server.start();
 
   const app = express();
+
   app.use(cors(
     // { origin: "https://geteasytrack.web.app", credentials: true}
    { origin: "http://localhost:3000", credentials: true }
     ));
+  app.use(verifyjwt);
+  
   server.applyMiddleware({ app });
 
   await new Promise(resolve => app.listen({ port: 4000 }, resolve));
