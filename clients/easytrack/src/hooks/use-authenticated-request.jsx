@@ -14,6 +14,7 @@ const useAuthenticatedRequest = () => {
             },
             url: `${BACKEND_URL}/${url}`,
             data: {...data, userId: user.userId },
+            withCredentials: true,
         });
     }
     return { sendRequest };

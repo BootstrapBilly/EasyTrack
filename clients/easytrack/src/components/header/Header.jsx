@@ -23,15 +23,7 @@ const Header = () => {
                 <NavigationDrawer open={drawerOpen} toggleOpen={toggleSideDrawer} />
             </button>
             <div className="text-brand text-xl font-bold">{startCase(navigationStatus.split("/")[0])}</div>
-            <button type="button">
-                <FontAwesomeIcon
-                    data-testid="header__settings-cog"
-                    onClick={() => {}}
-                    icon={"cog"}
-                    className="text-grey-medium"
-                    size="lg"
-                />
-            </button>
+            <div/>
         </div>
     )
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, ExerciseIconPill } from "../../../../../../components"
 import Weight from "../../../../../../Assets/weight.svg";
-import WeightGrey from "../../../../../../Assets/weight-grey.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     GET_SESSIONS_QUERY, 
@@ -45,7 +44,6 @@ const SessionTracker = ({ exercise }) => {
         },
         fetchPolicy: "no-cache",
         onCompleted: ({ session }) => {
-            console.log(session)
             setSessions([...sessions, session])
         },
         onError: ({ graphQLErrors, networkError }) => {
@@ -73,8 +71,6 @@ const SessionTracker = ({ exercise }) => {
 
     const [updateSet] = useMutation(UPDATE_SET, {
         onCompleted: ({ session: updatedSession }) => {
-            console.log(updatedSession);
-            // setSessions(sessions.map(session => session.id === updatedSession.id ? updatedSession : session))
         },
         onError: ({ graphQLErrors, networkError }) => {
             // @todo handle errors
@@ -84,7 +80,6 @@ const SessionTracker = ({ exercise }) => {
 
     useEffect(getSessions, [])
 
-    console.log(sessions);
     return (
         <div className="h-90% w-90% shadow-lg bg-white rounded flex flex-col relative mt-2">
             <div className="w-full flex justify-center absolute -top-6"><ExerciseIconPill name={name} noShadow border="4" borderColor="background" /></div>

@@ -15,7 +15,7 @@ const login = async (req, res) => {
         const [email, password] = sanitizedData;
 
         // login detail validation
-        const user = await User.findOne({ email: { $regex: email.trim(), $options: "i" } }); // check if user exists
+        const user = await User.findOne({ email: new RegExp(`^${email.trim()}$`, 'i') }); // check if user exists
         if(!user) return userErrorResponse(res, invalidDetails); // send generic error response so email address is not compromised
 
         const passwordValid = await bcrypt.compare(password, user.password); // check if the password is valid

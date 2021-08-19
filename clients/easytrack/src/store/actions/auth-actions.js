@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
 export const REFRESH_SESSION = "REFRESH_SESSION";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SWITCH_AUTHENTICATION_STATUS = "SWITCH_AUTHENTICATION_STATUS";
@@ -10,6 +11,13 @@ export const loginSuccess = ({ user, jwt }) => {
         dispatch({
             type: LOGIN_SUCCESS,
             payload: { user, jwt }
+        })
+    }
+}
+export const logout = () => {
+    return async dispatch => {
+        dispatch({
+            type: LOGIN_SUCCESS,
         })
     }
 }

@@ -27,7 +27,7 @@ const generateResetEmail = async (req, res) => {
         if (invalidEmail) return userErrorResponse(res, "Enter a valid email address", { field: "email" }); // if the email is not valid, return an error response
 
         // user validation
-        const user = await User.findOne({ email: { $regex: email.trim(), $options: "i" } }); // check if user exists
+        const user = await User.findOne({ email: new RegExp(`^${email.trim()}$`, 'i') }); // check if user exists
         if (!user) return userErrorResponse(res, responseMessage); // send generic error response so email address is not compromised
 
         // generate a random token 

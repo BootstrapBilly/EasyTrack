@@ -20,6 +20,20 @@ const deleteUser = async (req, res) => {
 
         await User.deleteOne({_id: userId}); //delete the user
 
+        res.cookie("jwt-refresh", null, {
+            httpOnly: true,
+            sameSite: 'none', 
+            secure: true,
+            maxAge: 604800000,
+        });
+
+        res.cookie("user", null, {
+            httpOnly: true,
+            sameSite: 'none', 
+            secure: true,
+            maxAge: 604800000,
+        });
+
         return res.status(200).json({ success: true })
     }
     catch (error) { // if something fails in the try block
